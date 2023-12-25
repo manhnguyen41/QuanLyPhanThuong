@@ -17,7 +17,7 @@ import javax.swing.table.TableModel;
 import cnpm_fe.Them_thong_tin_hoc_ki;
 import models.HocSinh;
 import models.ListOfHocSinh;
-
+import cnpm_fe.Danh_sach_dip_thuong;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -358,9 +358,7 @@ public class Danh_sach_hoc_sinh extends javax.swing.JFrame {
     }
 
     private void btnTimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimMouseClicked
-        if(tfDipThuong.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Vui lòng điền đủ thông tin");
-        }
+
     }
 
     private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed

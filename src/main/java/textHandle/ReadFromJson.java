@@ -1,4 +1,4 @@
-package QuanLyPhanThuong.src.main.java.textHandle;
+package textHandle;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

@@ -4,6 +4,8 @@
  */
 package cnpm_fe;
 
+import models.DipTangThuong;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -11,11 +13,12 @@ import javax.swing.JOptionPane;
  * @author MIXI_COMPUTER
  */
 public class Them_dip_thuong extends javax.swing.JFrame {
-
+    private DipTangThuong dipTangThuong;
     /**
      * Creates new form Them_dip_thuong
      */
-    public Them_dip_thuong() {
+    public Them_dip_thuong(DipTangThuong dipTangThuong) {
+        this.dipTangThuong = dipTangThuong;
         initComponents();
     }
 
@@ -192,6 +195,7 @@ public class Them_dip_thuong extends javax.swing.JFrame {
                 || tfGiaTien.getText().isEmpty()){
             JOptionPane.showMessageDialog(this, "Vui lòng điền đủ thông tin");
         }
+
     }//GEN-LAST:event_btnLuuMouseClicked
 
     /**
@@ -224,7 +228,7 @@ public class Them_dip_thuong extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Them_dip_thuong().setVisible(true);
+
             }
         });
     }

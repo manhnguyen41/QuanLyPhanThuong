@@ -4,17 +4,25 @@
  */
 package cnpm_fe;
 
+import models.ListOfNganQuy;
+import models.ListOfTangThuong;
+import models.NganQuyTangThuong;
+import models.TangThuong;
+
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author MIXI_COMPUTER
  */
 public class Danh_sach_quy extends javax.swing.JFrame {
-
+    private ListOfNganQuy listOfNganQuy = new ListOfNganQuy();
     /**
      * Creates new form Danh_sach_quy
      */
     public Danh_sach_quy() {
         initComponents();
+        display();
     }
 
     /**
@@ -36,7 +44,7 @@ public class Danh_sach_quy extends javax.swing.JFrame {
         Quan_ly_cap_phan_thuong = new javax.swing.JLabel();
         Danh_sach_quy_title = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tQuy = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,22 +55,47 @@ public class Danh_sach_quy extends javax.swing.JFrame {
         btnPhanThuong.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnPhanThuong.setForeground(new java.awt.Color(255, 255, 255));
         btnPhanThuong.setText("Phần thưởng");
+        btnPhanThuong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPhanThuongMouseClicked(evt);
+            }
+        });
 
         btnDipThuong.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnDipThuong.setForeground(new java.awt.Color(255, 255, 255));
         btnDipThuong.setText("Dịp thưởng");
+        btnDipThuong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDipThuongMouseClicked(evt);
+            }
+        });
 
         btnQuy.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnQuy.setForeground(new java.awt.Color(255, 255, 255));
         btnQuy.setText("Quỹ");
+        btnQuy.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnQuyMouseClicked(evt);
+            }
+        });
 
         btnHocSinh.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnHocSinh.setForeground(new java.awt.Color(255, 255, 255));
         btnHocSinh.setText("Học sinh");
+        btnHocSinh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnHocSinhMouseClicked(evt);
+            }
+        });
 
         btnThoat.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnThoat.setForeground(new java.awt.Color(255, 255, 255));
         btnThoat.setText("Thoát");
+        btnThoat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnThoatMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -111,7 +144,7 @@ public class Danh_sach_quy extends javax.swing.JFrame {
         Danh_sach_quy_title.setForeground(new java.awt.Color(0, 102, 102));
         Danh_sach_quy_title.setText("Danh sách quỹ");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tQuy.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -122,7 +155,7 @@ public class Danh_sach_quy extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tQuy);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -178,6 +211,50 @@ public class Danh_sach_quy extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnPhanThuongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPhanThuongMouseClicked
+        // TODO add your handling code here:
+         Danh_sach_phan_thuong newFrame = new Danh_sach_phan_thuong();
+        newFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnPhanThuongMouseClicked
+
+    private void btnDipThuongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDipThuongMouseClicked
+        // TODO add your handling code here:
+        Danh_sach_dip_thuong newFrame = new Danh_sach_dip_thuong();
+        newFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnDipThuongMouseClicked
+
+    private void btnQuyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuyMouseClicked
+        // TODO add your handling code here:
+        Danh_sach_quy newFrame = new Danh_sach_quy();
+        newFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnQuyMouseClicked
+
+    private void btnHocSinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHocSinhMouseClicked
+        // TODO add your handling code here:
+        Danh_sach_hoc_sinh newFrame = new Danh_sach_hoc_sinh();
+        newFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnHocSinhMouseClicked
+
+    private void btnThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThoatMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnThoatMouseClicked
+    private void display() {
+        DefaultTableModel defaultTableModel = (DefaultTableModel) tQuy.getModel();
+        defaultTableModel.getDataVector().removeAllElements();
+        defaultTableModel.fireTableDataChanged();
+
+        for(NganQuyTangThuong nganQuyTangThuong: listOfNganQuy.getNganQuyTangThuongList()){
+            String data[] = {Integer.toString(nganQuyTangThuong.getIdNganQuyTangThuong()), nganQuyTangThuong.getChiTiet(),
+                    nganQuyTangThuong.getNgayThayDoi()};
+            defaultTableModel.addRow(data);
+        }
+        listOfNganQuy = new ListOfNganQuy();
+    }
     /**
      * @param args the command line arguments
      */
@@ -224,6 +301,6 @@ public class Danh_sach_quy extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable tQuy;
     // End of variables declaration//GEN-END:variables
 }

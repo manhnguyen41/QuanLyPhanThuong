@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package frontend.cnpm_fe;
+package cnpm_fe;
 
 /**
  *
@@ -10,15 +10,25 @@ package frontend.cnpm_fe;
  */
 import cnpm_fe.Them_dip_thuong;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 import cnpm_fe.Sua_thong_tin_dip_thuong;
 import cnpm_fe.Them_dip_thuong;
-public class Danh_sach_dip_thuong extends javax.swing.JFrame {
+import models.DipTangThuong;
+import models.HocSinh;
+import models.ListOfDipTangThuong;
+import models.ListOfHocSinh;
 
+public class Danh_sach_dip_thuong extends javax.swing.JFrame {
+    private ListOfDipTangThuong listOfDipTangThuong = new ListOfDipTangThuong();
+    private DipTangThuong dipTangThuong = null;
+    private int dipThuongID = -1;
     /**
      * Creates new form Danh_sach_dip_thuong
      */
     public Danh_sach_dip_thuong() {
         initComponents();
+        display();
     }
 
     /**
@@ -43,7 +53,7 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
         DipThuong = new javax.swing.JLabel();
         btnTim = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tDipThuong = new javax.swing.JTable();
         btnThem = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
 
@@ -52,14 +62,29 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(828, 449));
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 102));
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel2MouseClicked(evt);
+            }
+        });
 
         btnPhanThuong.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnPhanThuong.setForeground(new java.awt.Color(255, 255, 255));
         btnPhanThuong.setText("Phần thưởng");
+        btnPhanThuong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPhanThuongMouseClicked(evt);
+            }
+        });
 
         btnDipThuong.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnDipThuong.setForeground(new java.awt.Color(255, 255, 255));
         btnDipThuong.setText("Dịp thưởng");
+        btnDipThuong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDipThuongMouseClicked(evt);
+            }
+        });
 
         btnQuy.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnQuy.setForeground(new java.awt.Color(255, 255, 255));
@@ -68,10 +93,20 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
         btnHocSinh.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnHocSinh.setForeground(new java.awt.Color(255, 255, 255));
         btnHocSinh.setText("Học sinh");
+        btnHocSinh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnHocSinhMouseClicked(evt);
+            }
+        });
 
         btnThoat.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnThoat.setForeground(new java.awt.Color(255, 255, 255));
         btnThoat.setText("Thoát");
+        btnThoat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnThoatMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -142,7 +177,7 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
             }
         });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tDipThuong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -153,7 +188,7 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
                 "Title 1", "Title 2"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tDipThuong);
 
         btnThem.setBackground(new java.awt.Color(0, 51, 51));
         btnThem.setForeground(new java.awt.Color(255, 255, 255));
@@ -266,9 +301,9 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
 
     private void btnTimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimMouseClicked
         // TODO add your handling code here:
-        if(tfDipThuong.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Vui lòng điền đủ thông tin");
-        }
+        String dipThuong = tfDipThuong.getText();
+        listOfDipTangThuong.searchByHocKy(dipThuong);
+        display();
     }//GEN-LAST:event_btnTimMouseClicked
 
     private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
@@ -282,19 +317,73 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
 
     private void btnThemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseClicked
         // TODO add your handling code here:
-        Them_dip_thuong newForm = new Them_dip_thuong();
+        Them_dip_thuong newForm = new Them_dip_thuong(dipTangThuong);
         newForm.setVisible(true);
     }//GEN-LAST:event_btnThemMouseClicked
 
     private void btnSuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseClicked
         // TODO add your handling code here:
-        Sua_thong_tin_dip_thuong newForm = new Sua_thong_tin_dip_thuong();
-        newForm.setVisible(true);
+        //kiểm tra xem chọn dịp thưởng chưa
+        if(dipThuongID == -1 || dipTangThuong == null){
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một dịp thưởng trong bảng\n"
+                    + "để sửa thông tin về dịp thưởng đó.");
+        }
+        else {
+            Sua_thong_tin_dip_thuong newForm = new Sua_thong_tin_dip_thuong(dipTangThuong);
+            newForm.setVisible(true);
+        }
     }//GEN-LAST:event_btnSuaMouseClicked
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnPhanThuongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPhanThuongMouseClicked
+        // TODO add your handling code here:
+        Danh_sach_phan_thuong newFrame = new Danh_sach_phan_thuong();
+        newFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnPhanThuongMouseClicked
+
+    private void btnDipThuongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDipThuongMouseClicked
+        // TODO add your handling code here:
+        Danh_sach_dip_thuong newFrame = new Danh_sach_dip_thuong();
+        newFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnDipThuongMouseClicked
+
+    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
+        // TODO add your handling code here:
+        Danh_sach_quy newFrame = new Danh_sach_quy();
+        newFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jPanel2MouseClicked
+
+    private void btnHocSinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHocSinhMouseClicked
+        // TODO add your handling code here:
+        Danh_sach_hoc_sinh newFrame = new Danh_sach_hoc_sinh();
+        newFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnHocSinhMouseClicked
+
+    private void btnThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThoatMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnThoatMouseClicked
+
+    private void display() {
+        DefaultTableModel defaultTableModel = (DefaultTableModel) tDipThuong.getModel();
+        defaultTableModel.getDataVector().removeAllElements();
+        defaultTableModel.fireTableDataChanged();
+
+        for(DipTangThuong dipTangThuong: listOfDipTangThuong.getDipTangThuongList()){
+            String data[] = {Integer.toString(dipTangThuong.getIdDipTangTuong()),
+            dipTangThuong.getHocKy(), dipTangThuong.getNgayTangThuong(),
+            dipTangThuong.getThanhTich()};
+            defaultTableModel.addRow(data);
+        }
+        listOfDipTangThuong = new ListOfDipTangThuong();
+    }
 
     /**
      * @param args the command line arguments
@@ -346,7 +435,7 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable tDipThuong;
     private javax.swing.JTextField tfDipThuong;
     // End of variables declaration//GEN-END:variables
 }
