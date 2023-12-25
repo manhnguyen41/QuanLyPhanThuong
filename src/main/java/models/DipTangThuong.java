@@ -21,6 +21,7 @@ public class DipTangThuong implements DBActing{
     private boolean isDeleted = false;
     private List<HocSinh> listOfHocSinh;
     private NganQuyTangThuong nganQuyTangThuong;
+    private int tongSoPhanQua;
 
     // Constructor
     public DipTangThuong(String thanhTich, String hocKy,
@@ -32,6 +33,7 @@ public class DipTangThuong implements DBActing{
         this.ngayTangThuong = currentDate.format(formatter);
         this.chiTiet = chiTiet;
         listOfHocSinh = filter(new ListOfHocSinh());
+        tongSoPhanQua = listOfHocSinh.size();
         calculateTongSoTien();
     }
     public DipTangThuong(int idDipTangThuong, String thanhTich, String hocKy, String ngayTangThuong,
@@ -45,6 +47,7 @@ public class DipTangThuong implements DBActing{
         this.chiTiet = chiTiet;
         this.isDeleted = isDeleted;
         this.listOfHocSinh = filter(listOfHocSinh);
+        tongSoPhanQua = this.listOfHocSinh.size();
     }
 
     // Method to calculate tongSoTien
@@ -53,7 +56,7 @@ public class DipTangThuong implements DBActing{
         for (Integer giaTien: chiTiet.values()) {
             soTien += giaTien;
         }
-        soTien *= listOfHocSinh.size();
+        soTien *= tongSoPhanQua;
         tongSoTien = soTien;
     }
 
@@ -289,5 +292,13 @@ public class DipTangThuong implements DBActing{
 
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
+    }
+
+    public int getTongSoPhanQua() {
+        return tongSoPhanQua;
+    }
+
+    public void setTongSoPhanQua(int tongSoPhanQua) {
+        this.tongSoPhanQua = tongSoPhanQua;
     }
 }
