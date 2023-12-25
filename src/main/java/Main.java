@@ -1,5 +1,5 @@
 import models.*;
-import org.apache.commons.math3.analysis.function.Tan;
+//import org.apache.commons.math3.analysis.function.Tan;
 import textHandle.ReadMapFromText;
 
 import java.util.HashMap;
