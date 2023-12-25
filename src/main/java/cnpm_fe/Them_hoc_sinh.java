@@ -4,6 +4,8 @@
  */
 package cnpm_fe;
 
+import models.HocSinh;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -11,11 +13,13 @@ import javax.swing.JOptionPane;
  * @author MIXI_COMPUTER
  */
 public class Them_hoc_sinh extends javax.swing.JFrame {
+    private HocSinh hocSinh;
 
     /**
      * Creates new form Them_hoc_sinh
      */
-    public Them_hoc_sinh() {
+    public Them_hoc_sinh(HocSinh hocSinh) {
+        this.hocSinh = hocSinh;
         initComponents();
     }
 
@@ -30,33 +34,20 @@ public class Them_hoc_sinh extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         lbThemHocSinh = new javax.swing.JLabel();
-        lbTenHocSinh = new javax.swing.JLabel();
-        tfTenHocSinh = new javax.swing.JTextField();
         lbLop = new javax.swing.JLabel();
         tfLop = new javax.swing.JTextField();
         btnLuu = new javax.swing.JButton();
-        btnLuu1 = new javax.swing.JButton();
-        lbHocKi = new javax.swing.JLabel();
-        tfHocKi = new javax.swing.JTextField();
+        btnHuy = new javax.swing.JButton();
+        lbThanhTich = new javax.swing.JLabel();
+        cbThanhTich = new javax.swing.JComboBox<>();
         lbTruong = new javax.swing.JLabel();
         tfTruong = new javax.swing.JTextField();
-        lbMaHo = new javax.swing.JLabel();
-        tfMaHo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lbThemHocSinh.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbThemHocSinh.setForeground(new java.awt.Color(0, 102, 102));
         lbThemHocSinh.setText("Sửa thông tin học sinh");
-
-        lbTenHocSinh.setForeground(new java.awt.Color(0, 102, 102));
-        lbTenHocSinh.setText("Tên Học Sinh");
-
-        tfTenHocSinh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfTenHocSinhActionPerformed(evt);
-            }
-        });
 
         lbLop.setForeground(new java.awt.Color(0, 102, 102));
         lbLop.setText("Lớp");
@@ -75,34 +66,29 @@ public class Them_hoc_sinh extends javax.swing.JFrame {
             }
         });
 
-        btnLuu1.setBackground(new java.awt.Color(102, 0, 0));
-        btnLuu1.setForeground(new java.awt.Color(255, 255, 255));
-        btnLuu1.setText("Huỷ");
-        btnLuu1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnHuy.setBackground(new java.awt.Color(102, 0, 0));
+        btnHuy.setForeground(new java.awt.Color(255, 255, 255));
+        btnHuy.setText("Huỷ");
+        btnHuy.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnLuu1MouseClicked(evt);
+                btnHuyMouseClicked(evt);
             }
         });
-        btnLuu1.addActionListener(new java.awt.event.ActionListener() {
+        btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLuu1ActionPerformed(evt);
+                btnHuyActionPerformed(evt);
             }
         });
 
-        lbHocKi.setForeground(new java.awt.Color(0, 102, 102));
-        lbHocKi.setText("Học kì");
+        lbThanhTich.setForeground(new java.awt.Color(0, 102, 102));
+        lbThanhTich.setText("Thành tich");
 
         lbTruong.setForeground(new java.awt.Color(0, 102, 102));
         lbTruong.setText("Trường ");
 
-        lbMaHo.setForeground(new java.awt.Color(0, 102, 102));
-        lbMaHo.setText("Mã Hộ");
+        cbThanhTich.setModel(new javax.swing.DefaultComboBoxModel<>(
+            new String[] { "Giỏi", "Tiên tiến", "Trung bình"}));
 
-        tfMaHo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfMaHoActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -112,24 +98,20 @@ public class Them_hoc_sinh extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbLop)
-                    .addComponent(lbTenHocSinh)
-                    .addComponent(lbHocKi)
-                    .addComponent(lbTruong)
-                    .addComponent(lbMaHo))
+                    .addComponent(lbThanhTich)
+                    .addComponent(lbTruong))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lbThemHocSinh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tfTenHocSinh)
                     .addComponent(tfLop)
-                    .addComponent(tfHocKi)
-                    .addComponent(tfTruong)
-                    .addComponent(tfMaHo))
+                    .addComponent(cbThanhTich)
+                    .addComponent(tfTruong))
                 .addContainerGap(142, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(57, 57, 57)
                 .addComponent(btnLuu)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnLuu1)
+                .addComponent(btnHuy)
                 .addGap(77, 77, 77))
         );
         jPanel1Layout.setVerticalGroup(
@@ -138,16 +120,8 @@ public class Them_hoc_sinh extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lbThemHocSinh)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbTenHocSinh)
-                    .addComponent(tfTenHocSinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbMaHo)
-                            .addComponent(tfMaHo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbLop)
                             .addComponent(tfLop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -156,12 +130,12 @@ public class Them_hoc_sinh extends javax.swing.JFrame {
                     .addComponent(tfTruong, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbHocKi)
-                    .addComponent(tfHocKi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbThanhTich)
+                    .addComponent(cbThanhTich, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLuu)
-                    .addComponent(btnLuu1))
+                    .addComponent(btnHuy))
                 .addGap(132, 132, 132))
         );
 
@@ -193,14 +167,14 @@ public class Them_hoc_sinh extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLuuActionPerformed
 
-    private void btnLuu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLuu1MouseClicked
+    private void btnHuyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHuyMouseClicked
         // TODO add your handling code here:
         this.dispose();
-    }//GEN-LAST:event_btnLuu1MouseClicked
+    }//GEN-LAST:event_btnHuyMouseClicked
 
-    private void btnLuu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuu1ActionPerformed
+    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnLuu1ActionPerformed
+    }//GEN-LAST:event_btnHuyActionPerformed
 
     private void tfMaHoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfMaHoActionPerformed
         // TODO add your handling code here:
@@ -208,9 +182,14 @@ public class Them_hoc_sinh extends javax.swing.JFrame {
 
     private void btnLuuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLuuMouseClicked
         // TODO add your handling code here:
-        if(tfTenHocSinh.getText().isEmpty() || tfHocKi.getText().isEmpty() || tfLop.getText().isEmpty()
-                || tfTruong.getText().isEmpty() || tfMaHo.getText().isEmpty()){
+        if(tfLop.getText().isEmpty() || tfTruong.getText().isEmpty()){
             JOptionPane.showMessageDialog(this, "Vui lòng điền đủ thông tin");
+        } else {
+            hocSinh.setThanhTich(cbThanhTich.getSelectedItem().toString());
+            hocSinh.setLop(tfLop.getText());
+            hocSinh.setTruong(tfTruong.getText());
+            hocSinh.editRow();
+            this.dispose();
         }
     }//GEN-LAST:event_btnLuuMouseClicked
 
@@ -244,25 +223,20 @@ public class Them_hoc_sinh extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Them_hoc_sinh().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLuu;
-    private javax.swing.JButton btnLuu1;
+    private javax.swing.JButton btnHuy;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lbHocKi;
+    private javax.swing.JLabel lbThanhTich;
     private javax.swing.JLabel lbLop;
-    private javax.swing.JLabel lbMaHo;
-    private javax.swing.JLabel lbTenHocSinh;
     private javax.swing.JLabel lbThemHocSinh;
     private javax.swing.JLabel lbTruong;
-    private javax.swing.JTextField tfHocKi;
+    private javax.swing.JComboBox<String> cbThanhTich;
     private javax.swing.JTextField tfLop;
-    private javax.swing.JTextField tfMaHo;
-    private javax.swing.JTextField tfTenHocSinh;
     private javax.swing.JTextField tfTruong;
     // End of variables declaration//GEN-END:variables
 }

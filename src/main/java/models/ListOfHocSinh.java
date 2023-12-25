@@ -142,6 +142,17 @@ public class ListOfHocSinh {
         return filteredList;
     }
 
+    // Method to get HocSinh by nhanKhauId and hocKy
+    public HocSinh getHocSinhByNhanKhauIdHocKy(int nhanKhauId, String hocKy) {
+        for (HocSinh hocSinh: hocSinhList) {
+            if (hocSinh.getNhanKhauId() == nhanKhauId
+                && hocSinh.getHocKy().equals(hocKy)) {
+                return hocSinh;
+            }
+        }
+        return null;
+    }
+
     // Getter and Setter
     public List<HocSinh> getHocSinhList() {
         return hocSinhList;

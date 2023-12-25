@@ -18,10 +18,16 @@ import cnpm_fe.Them_thong_tin_hoc_ki;
 import models.HocSinh;
 import models.ListOfHocSinh;
 
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.List;
 
 public class Danh_sach_hoc_sinh extends javax.swing.JFrame {
     private ListOfHocSinh listOfHocSinh = new ListOfHocSinh();
+    private int nhanKhauId = -1;
+    private String dipThuong = "";
+    private HocSinh hocSinh = null;
 
     /**
      * Creates new form Danh_sach_hoc_sinh
@@ -187,6 +193,12 @@ public class Danh_sach_hoc_sinh extends javax.swing.JFrame {
                     "Sổ hộ khẩu"
             }
         ));
+
+        tHocSinh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tHocSinhMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tHocSinh);
 
         btnThemDipThuong.setBackground(new java.awt.Color(0, 51, 51));
@@ -298,9 +310,8 @@ public class Danh_sach_hoc_sinh extends javax.swing.JFrame {
 
     // Event click Button Thêm dịp thưởng
     private void btnThemDipThuongClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbHoKhauMouseClicked
-        Them_thong_tin_hoc_ki newFrame = new Them_thong_tin_hoc_ki(listOfHocSinh);
-        newFrame.setVisible(true);
-        display();
+        Them_thong_tin_hoc_ki newForm = new Them_thong_tin_hoc_ki(listOfHocSinh);
+        newForm.setVisible(true);
     }
 
     // Event click Button Tim
@@ -356,22 +367,36 @@ public class Danh_sach_hoc_sinh extends javax.swing.JFrame {
 
     }
 
-    private void btnThemDipThuongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemDipThuongMouseClicked
-        Them_thong_tin_hoc_ki newForm = new Them_thong_tin_hoc_ki(listOfHocSinh);
-        newForm.setVisible(true);
-        display();
-    }
-
     private void btnThemDipThuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemDipThuongActionPerformed
     }
 
-    private void btnSuaThongTinHocSinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaThongTinHocSinhMouseClicked
-        Them_hoc_sinh newForm = new Them_hoc_sinh();
+    private void btnSuaThongTinHocSinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
+        // ------ kiểm tra xem đã chọn học sinh chưa
+        if (nhanKhauId == -1 || dipThuong.equals("") || hocSinh == null) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một học sinh trong bảng\n"
+                + "để sửa thông tin về học sinh đó.");
+            return;
+        }
+        if (!Character.isDigit(dipThuong.charAt(0))) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một học sinh có dịp thưởng là học kỳ để sửa");
+            return;
+        }
+        // ------ truyền vào form sửa học sinh
+        Them_hoc_sinh newForm = new Them_hoc_sinh(hocSinh);
         newForm.setVisible(true);
     }
 
     private void btnSuaThongTinHocSinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaThongTinHocSinhActionPerformed
+
     }
+
+    private void tHocSinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tHoKhauMouseClicked
+        DefaultTableModel model = (DefaultTableModel)tHocSinh.getModel();
+        int indexRow = tHocSinh.getSelectedRow();
+        nhanKhauId = Integer.parseInt(model.getValueAt(indexRow, 0).toString());
+        dipThuong = String.valueOf(model.getValueAt(indexRow, 4).toString());
+        hocSinh = listOfHocSinh.getHocSinhByNhanKhauIdHocKy(nhanKhauId, dipThuong);
+    }//GEN-LAST:event_tHoKhauMouseClicked
 
     private void display() {
         DefaultTableModel defaultTableModel = (DefaultTableModel) tHocSinh.getModel();
