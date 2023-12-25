@@ -1,64 +1,131 @@
 package models;
 
+import dbConnector.Connector;
+import jsonHandle.WriteToJson;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 public class TangThuong implements DBActing{
     // Attribute
-    private String idTangThuong;
-    private String idDipTangThuong;
-    private String tenDip;
+    private int idDipTangThuong;
     private String soHoKhau;
-    private int soTien;
-    private int soPhanQua;
+    private String hocKy;
+    private Map<String, Integer> chiTietPhanQua = new HashMap<>();
     private boolean isDeleted = false;
 
     // Constructor
-    public TangThuong(String idTangThuong, String idDipTangThuong, String tenDip,
-                      String soHoKhau, int soTien, int soPhanQua) {
-        this.idTangThuong = idTangThuong;
+    public TangThuong(int idDipTangThuong, String soHoKhau, String hocKy) {
         this.idDipTangThuong = idDipTangThuong;
-        this.tenDip = tenDip;
         this.soHoKhau = soHoKhau;
-        this.soTien = soTien;
-        this.soPhanQua = soPhanQua;
+        this.hocKy = hocKy;
+    }
+
+    public TangThuong(int idDipTangThuong, String soHoKhau, String hocKy, Map<String, Integer> chiTietPhanQua, boolean isDeleted) {
+        this.idDipTangThuong = idDipTangThuong;
+        this.soHoKhau = soHoKhau;
+        this.hocKy = hocKy;
+        this.chiTietPhanQua = chiTietPhanQua;
+        this.isDeleted = isDeleted;
     }
 
     // Phuong thuc de them mot dong vao csdl
     public void addNewRow() {
+        try {
+            Connection connection = Connector.getConnection();
 
+            String insertQuery = "INSERT INTO `tang_thuong` (\n" +
+                    "  `id_dip_tang_thuong`,\n" +
+                    "  `so_ho_khau`,\n" +
+                    "  `hoc_ky`,\n" +
+                    "  `chi_tiet_phan_qua`\n" +
+                    ") VALUES (\n" +
+                    "   " + idDipTangThuong +
+                    ", '" + soHoKhau +
+                    "', '" + hocKy +
+                    "', '" + WriteToJson.mapToJson(chiTietPhanQua) +
+                    "');\n";
+
+            PreparedStatement add = connection.prepareStatement(insertQuery);
+            int row = add.executeUpdate();
+
+            // --- thêm một đoạn dialog báo thêm thành công ở đây
+
+            add.close();
+            connection.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    // Phuong thuc de sua mot dong
+    @Override
     public void editRow() {
+        try {
+            Connection connection = Connector.getConnection();
 
+            String updateQuery = "UPDATE `tang_thuong`\n" +
+                    "SET\n" +
+                    " `chi_tiet_phan_qua` = '" + WriteToJson.mapToJson(chiTietPhanQua) +
+                    "' WHERE\n" +
+                    "  `hoc_ky` = '" + hocKy +
+                    "' AND `so_ho_khau` = '" + soHoKhau + "';";
+
+            PreparedStatement edit = connection.prepareStatement(updateQuery);
+            int row = edit.executeUpdate();
+
+            // --- thêm một đoạn dialog báo sửa thành công
+
+            edit.close();
+            connection.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    // Phuong thuc de xoa mot dong
+    @Override
     public void deleteRow() {
+        try {
+            Connection connection = Connector.getConnection();
 
+            String deleteQuery = "DELETE FROM `tang_thuong`\n" +
+                    " WHERE\n" +
+                    "  `hoc_ky` = '" + hocKy +
+                    "' AND `so_ho_khau` = '" + soHoKhau + "';";
+
+            PreparedStatement edit = connection.prepareStatement(deleteQuery);
+            int row = edit.executeUpdate();
+
+            // --- thêm một đoạn dialog báo sửa thành công
+
+            edit.close();
+            connection.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TangThuong that = (TangThuong) o;
+        return Objects.equals(soHoKhau, that.soHoKhau) && Objects.equals(hocKy, that.hocKy);
     }
 
     // Getter and Setter
-    public String getIdTangThuong() {
-        return idTangThuong;
-    }
 
-    public void setIdTangThuong(String idTangThuong) {
-        this.idTangThuong = idTangThuong;
-    }
-
-    public String getIdDipTangThuong() {
+    public int getIdDipTangThuong() {
         return idDipTangThuong;
     }
 
-    public void setIdDipTangThuong(String idDipTangThuong) {
+    public void setIdDipTangThuong(int idDipTangThuong) {
         this.idDipTangThuong = idDipTangThuong;
-    }
-
-    public String getTenDip() {
-        return tenDip;
-    }
-
-    public void setTenDip(String tenDip) {
-        this.tenDip = tenDip;
     }
 
     public String getSoHoKhau() {
@@ -69,20 +136,20 @@ public class TangThuong implements DBActing{
         this.soHoKhau = soHoKhau;
     }
 
-    public int getSoTien() {
-        return soTien;
+    public String getHocKy() {
+        return hocKy;
     }
 
-    public void setSoTien(int soTien) {
-        this.soTien = soTien;
+    public void setHocKy(String hocKy) {
+        this.hocKy = hocKy;
     }
 
-    public int getSoPhanQua() {
-        return soPhanQua;
+    public Map<String, Integer> getChiTietPhanQua() {
+        return chiTietPhanQua;
     }
 
-    public void setSoPhanQua(int soPhanQua) {
-        this.soPhanQua = soPhanQua;
+    public void setChiTietPhanQua(Map<String, Integer> chiTietPhanQua) {
+        this.chiTietPhanQua = chiTietPhanQua;
     }
 
     public boolean isDeleted() {

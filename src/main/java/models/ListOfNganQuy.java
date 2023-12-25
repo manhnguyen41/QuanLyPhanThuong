@@ -14,6 +14,28 @@ public class ListOfNganQuy {
 
     // Constructor
     public ListOfNganQuy() {
+        try {
+            Connection connection = Connector.getConnection();
+
+            String selectQuery = "SELECT * FROM ngan_quy_tang_thuong;";
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(selectQuery);
+            while (resultSet.next()) {
+                NganQuyTangThuong nganQuyTangThuong = new NganQuyTangThuong(
+                        resultSet.getInt("id_ngan_quy_tang_thuong"),
+                        resultSet.getInt("so_tien_thay_doi"),
+                        resultSet.getString("ngay_thay_doi"),
+                        resultSet.getString("chi_tiet"),
+                        resultSet.getInt("tong_so_tien"),
+                        resultSet.getBoolean("isDeleted")
+                        );
+                nganQuyTangThuongList.add(nganQuyTangThuong);
+            }
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // Getter and Setter
@@ -25,43 +47,24 @@ public class ListOfNganQuy {
         this.nganQuyTangThuongList = nganQuyTangThuongList;
     }
 
-    public List<NganQuyTangThuong> getListFromDatabase() {
-        List<NganQuyTangThuong> nganQuyTangThuongList = new ArrayList<>();
-        try {
-            Connection connection = Connector.getConnection();
-
-            String sql = "SELECT\n" +
-                    "  `id_ngan_quy_tang_thuong`,\n" +
-                    "  `so_tien_thay_doi`,\n" +
-                    "  `ngay_thay_doi`,\n" +
-                    "  `tong_so_tien`,\n" +
-                    "  `chi_tiet`,\n" +
-                    "  `isDeleted`\n" +
-                    "FROM\n" +
-                    "  `ngan_quy_tang_thuong`\n";
-
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-
-            while (resultSet.next()) {
-                NganQuyTangThuong nganQuyTangThuongNew = new NganQuyTangThuong();
-                nganQuyTangThuongNew.setIdNganQuyTangThuong(resultSet.getString("id_ngan_quy_tang_thuong"));
-                nganQuyTangThuongNew.setSoTienThayDoi(resultSet.getInt("so_tien_thay_doi"));
-                nganQuyTangThuongNew.setNgayThayDoi(resultSet.getString("ngay_thay_doi"));
-                nganQuyTangThuongNew.setChiTiet(resultSet.getString("chi_tiet"));
-                nganQuyTangThuongNew.setDeleted(Boolean.parseBoolean(resultSet.getString("isDeleted")));
-                nganQuyTangThuongList.add(nganQuyTangThuongNew);
+    // Get not deleted nganQuy
+    public List<NganQuyTangThuong> getNotDeletedNganQuy() {
+        List<NganQuyTangThuong> filteredList = new ArrayList<>();
+        for (NganQuyTangThuong nganQuyTangThuong: nganQuyTangThuongList) {
+            if (!nganQuyTangThuong.isDeleted()) {
+                filteredList.add(nganQuyTangThuong);
             }
-
-            for (NganQuyTangThuong nganQuyTangThuong : nganQuyTangThuongList) {
-                System.out.println(nganQuyTangThuong.toString());
-            }
-            return nganQuyTangThuongList;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
         }
+        return filteredList;
     }
 
+    // Get NganQuy by idNganQuyTangThuong
+    public NganQuyTangThuong getNganQuyById(int idNganQuyTangThuong) {
+        for (NganQuyTangThuong nganQuyTangThuong: nganQuyTangThuongList) {
+            if (nganQuyTangThuong.getIdNganQuyTangThuong() == idNganQuyTangThuong) {
+                return nganQuyTangThuong;
+            }
+        }
+        return null;
+    }
 }

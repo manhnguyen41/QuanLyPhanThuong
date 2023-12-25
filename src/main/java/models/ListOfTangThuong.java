@@ -1,5 +1,11 @@
 package models;
 
+import dbConnector.Connector;
+import jsonHandle.ReadFromJson;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,38 +15,35 @@ public class ListOfTangThuong {
 
     // Constructor
     public ListOfTangThuong() {
-    }
+        try {
+            Connection connection = Connector.getConnection();
 
-    // Search by so ho khau
-    public List<TangThuong> searchBySoHoKhau(String soHoKhau) {
-        List<TangThuong> filteredList = new ArrayList<>();
-        for (TangThuong tangThuong: tangThuongList) {
-            if (tangThuong.getSoHoKhau().contains(soHoKhau)) {
-                filteredList.add(tangThuong);
+            String selectQuery = "SELECT * FROM tang_thuong;";
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(selectQuery);
+            while (resultSet.next()) {
+                TangThuong tangThuong = new TangThuong(
+                        resultSet.getInt("id_dip_tang_thuong"),
+                        resultSet.getString("so_ho_khau"),
+                        resultSet.getString("hoc_ky"),
+                        ReadFromJson.jsonToMap(resultSet.getString("chi_tiet_phan_qua")),
+                        resultSet.getBoolean("isDeleted")
+                );
+                tangThuongList.add(tangThuong);
             }
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return filteredList;
     }
 
-    // Search by ten dip
-    public List<TangThuong> searchByTenDip(String tenDip) {
-        List<TangThuong> filteredList = new ArrayList<>();
-        for (TangThuong tangThuong: tangThuongList) {
-            if (tangThuong.getTenDip().toLowerCase()
-                    .contains(tenDip.toLowerCase())) {
-                filteredList.add(tangThuong);
-            }
-        }
-        return filteredList;
-    }
-
-    // Search by so ho khau and ten dip
-    public List<TangThuong> searchBySoHoKhau(String soHoKhau, String tenDip) {
+    // Search by so ho khau and hoc ky
+    public List<TangThuong> searchBySoHoKhauAndHocKy(String soHoKhau, String hocKy) {
         List<TangThuong> filteredList = new ArrayList<>();
         for (TangThuong tangThuong: tangThuongList) {
             if (tangThuong.getSoHoKhau().contains(soHoKhau)
-                    && tangThuong.getTenDip().toLowerCase()
-                    .contains(tenDip.toLowerCase())) {
+                    && tangThuong.getHocKy().contains(hocKy)) {
                 filteredList.add(tangThuong);
             }
         }
