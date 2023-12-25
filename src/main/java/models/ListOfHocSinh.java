@@ -93,7 +93,7 @@ public class ListOfHocSinh {
     public List<HocSinh> getListOfHocSinhByHocKy(String hocKy) {
         List<HocSinh> filteredList = new ArrayList<>();
         for (HocSinh hocSinh: hocSinhList) {
-            if (hocSinh.getHocKy().equals(hocKy)) {
+            if (hocSinh.getHocKy().contains(hocKy)) {
                 filteredList.add(hocSinh);
             }
         }
@@ -140,6 +140,17 @@ public class ListOfHocSinh {
             }
         }
         return filteredList;
+    }
+
+    // Method to get HocSinh by nhanKhauId and hocKy
+    public HocSinh getHocSinhByNhanKhauIdHocKy(int nhanKhauId, String hocKy) {
+        for (HocSinh hocSinh: hocSinhList) {
+            if (hocSinh.getNhanKhauId() == nhanKhauId
+                && hocSinh.getHocKy().equals(hocKy)) {
+                return hocSinh;
+            }
+        }
+        return null;
     }
 
     // Getter and Setter

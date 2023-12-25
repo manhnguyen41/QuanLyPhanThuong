@@ -4,18 +4,22 @@
  */
 package cnpm_fe;
 
-import javax.swing.JOptionPane;
+import models.ListOfHocSinh;
+
+import javax.swing.*;
 
 /**
  *
  * @author MIXI_COMPUTER
  */
 public class Them_thong_tin_hoc_ki extends javax.swing.JFrame {
+    ListOfHocSinh listOfHocSinh;
 
     /**
      * Creates new form Them_thong_tin_hoc_ki
      */
-    public Them_thong_tin_hoc_ki() {
+    public Them_thong_tin_hoc_ki(ListOfHocSinh listOfHocSinh) {
+        this.listOfHocSinh = listOfHocSinh;
         initComponents();
     }
 
@@ -33,22 +37,18 @@ public class Them_thong_tin_hoc_ki extends javax.swing.JFrame {
         lbHocKi = new javax.swing.JLabel();
         tfHocKi = new javax.swing.JTextField();
         btnLuu = new javax.swing.JButton();
-        btnLuu1 = new javax.swing.JButton();
+        btnHuy = new javax.swing.JButton();
+        taLuuY = new JTextArea();
+        spLuuY = new JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lbThemThongTinHocKi.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbThemThongTinHocKi.setForeground(new java.awt.Color(0, 102, 102));
-        lbThemThongTinHocKi.setText("Thêm thông tin học kì");
+        lbThemThongTinHocKi.setText("Thêm thông tin dịp thưởng");
 
         lbHocKi.setForeground(new java.awt.Color(0, 102, 102));
-        lbHocKi.setText("Học kì");
-
-        tfHocKi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfHocKiActionPerformed(evt);
-            }
-        });
+        lbHocKi.setText("Dịp thưởng");
 
         btnLuu.setBackground(new java.awt.Color(0, 51, 51));
         btnLuu.setForeground(new java.awt.Color(255, 255, 255));
@@ -64,19 +64,29 @@ public class Them_thong_tin_hoc_ki extends javax.swing.JFrame {
             }
         });
 
-        btnLuu1.setBackground(new java.awt.Color(102, 0, 0));
-        btnLuu1.setForeground(new java.awt.Color(255, 255, 255));
-        btnLuu1.setText("Huỷ");
-        btnLuu1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnHuy.setBackground(new java.awt.Color(102, 0, 0));
+        btnHuy.setForeground(new java.awt.Color(255, 255, 255));
+        btnHuy.setText("Huỷ");
+        btnHuy.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnLuu1MouseClicked(evt);
+                btnHuyMouseClicked(evt);
             }
         });
-        btnLuu1.addActionListener(new java.awt.event.ActionListener() {
+        btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLuu1ActionPerformed(evt);
+                btnHuyActionPerformed(evt);
             }
         });
+
+        taLuuY.setColumns(10);
+        taLuuY.setForeground(new java.awt.Color(0, 102, 102));
+        taLuuY.setRows(5);
+        taLuuY.setText("- Mục dịp thưởng phải được điền với định dạng: \n" +
+            "   + \"năm học + học kỳ\" cho việc tặng thưởng cuối năm học \n" +
+            "(Ví dụ: 20231)\n" +
+            "   + \"tên dịp + năm\" cho việc tặng thưởng dịp lễ \n" +
+            "(Ví dụ: Trung thu 2023)");
+        spLuuY.setViewportView(taLuuY);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -88,13 +98,17 @@ public class Them_thong_tin_hoc_ki extends javax.swing.JFrame {
                 .addGap(51, 51, 51)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lbThemThongTinHocKi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tfHocKi))
-                .addContainerGap(129, Short.MAX_VALUE))
+                    .addComponent(tfHocKi)
+                    .addComponent(spLuuY)
+                )
+                    .addContainerGap(129, Short.MAX_VALUE)
+                .addGap(51, 51, 51)
+            )
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(63, 63, 63)
                 .addComponent(btnLuu)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnLuu1)
+                .addComponent(btnHuy)
                 .addGap(73, 73, 73))
         );
         jPanel1Layout.setVerticalGroup(
@@ -105,12 +119,15 @@ public class Them_thong_tin_hoc_ki extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbHocKi)
-                    .addComponent(tfHocKi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfHocKi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                )
+                .addGap(15, 15, 15)
+                .addComponent(spLuuY)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 244, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLuu)
-                    .addComponent(btnLuu1))
-                .addGap(159, 159, 159))
+                    .addComponent(btnHuy))
+                .addGap(30, 30, 30))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -133,22 +150,26 @@ public class Them_thong_tin_hoc_ki extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tfHocKiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfHocKiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfHocKiActionPerformed
-
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-        // TODO add your handling code here:
+        String dipThuong = tfHocKi.getText();
+        if (dipThuong.matches("^\\d{5}$")
+            | dipThuong.matches("^.+ \\d{4}$")) {
+            listOfHocSinh.addNewHocKy(dipThuong);
+            JOptionPane.showMessageDialog(this, "Thêm thành công");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng điền đúng định dạng");
+        }
     }//GEN-LAST:event_btnLuuActionPerformed
 
-    private void btnLuu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLuu1MouseClicked
+    private void btnHuyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHuyMouseClicked
         // TODO add your handling code here:
         this.dispose();
-    }//GEN-LAST:event_btnLuu1MouseClicked
+    }//GEN-LAST:event_btnHuyMouseClicked
 
-    private void btnLuu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuu1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLuu1ActionPerformed
+    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnHuyActionPerformed
 
     private void btnLuuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLuuMouseClicked
         // TODO add your handling code here:
@@ -187,17 +208,20 @@ public class Them_thong_tin_hoc_ki extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Them_thong_tin_hoc_ki().setVisible(true);
+                new Them_thong_tin_hoc_ki(new ListOfHocSinh()).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLuu;
-    private javax.swing.JButton btnLuu1;
+    private javax.swing.JButton btnHuy;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbHocKi;
     private javax.swing.JLabel lbThemThongTinHocKi;
     private javax.swing.JTextField tfHocKi;
+    private javax.swing.JTextArea taLuuY;
+    private javax.swing.JScrollPane spLuuY;
+
     // End of variables declaration//GEN-END:variables
 }
