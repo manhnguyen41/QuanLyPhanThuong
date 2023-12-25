@@ -31,10 +31,10 @@ public class Danh_sach_hoc_sinh extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        btnPhanThuong = new javax.swing.JLabel();
-        btnDipThuong = new javax.swing.JLabel();
-        btnQuy = new javax.swing.JLabel();
-        btnInBaoCao = new javax.swing.JLabel();
+        lbTangThuong = new javax.swing.JLabel();
+        lbDipThuong = new javax.swing.JLabel();
+        lbNganQuy = new javax.swing.JLabel();
+        lbHocSinh = new javax.swing.JLabel();
         btnThoat = new javax.swing.JLabel();
         Quan_ly_cap_phan_thuong = new javax.swing.JLabel();
         lbDanhSachHocSinh = new javax.swing.JLabel();
@@ -52,21 +52,26 @@ public class Danh_sach_hoc_sinh extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 102));
 
-        btnPhanThuong.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnPhanThuong.setForeground(new java.awt.Color(255, 255, 255));
-        btnPhanThuong.setText("Phần thưởng");
+        lbTangThuong.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbTangThuong.setForeground(new java.awt.Color(255, 255, 255));
+        lbTangThuong.setText("Tặng thưởng");
+        lbTangThuong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbTangThuongClicked(evt);
+            }
+        });
 
-        btnDipThuong.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnDipThuong.setForeground(new java.awt.Color(255, 255, 255));
-        btnDipThuong.setText("Dịp thưởng");
+        lbDipThuong.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbDipThuong.setForeground(new java.awt.Color(255, 255, 255));
+        lbDipThuong.setText("Dịp thưởng");
 
-        btnQuy.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnQuy.setForeground(new java.awt.Color(255, 255, 255));
-        btnQuy.setText("Quỹ");
+        lbNganQuy.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbNganQuy.setForeground(new java.awt.Color(255, 255, 255));
+        lbNganQuy.setText("Quỹ");
 
-        btnInBaoCao.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnInBaoCao.setForeground(new java.awt.Color(255, 255, 255));
-        btnInBaoCao.setText("In báo cáo");
+        lbHocSinh.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbHocSinh.setForeground(new java.awt.Color(255, 255, 255));
+        lbHocSinh.setText("In báo cáo");
 
         btnThoat.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnThoat.setForeground(new java.awt.Color(255, 255, 255));
@@ -83,27 +88,27 @@ public class Danh_sach_hoc_sinh extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnThoat)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(btnQuy)
+                                .addComponent(lbNganQuy)
                                 .addGap(9, 9, 9))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnDipThuong)
-                            .addComponent(btnPhanThuong)
-                            .addComponent(btnInBaoCao))))
+                            .addComponent(lbDipThuong)
+                            .addComponent(lbTangThuong)
+                            .addComponent(lbHocSinh))))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(51, 51, 51)
-                .addComponent(btnPhanThuong)
+                .addComponent(lbTangThuong)
                 .addGap(18, 18, 18)
-                .addComponent(btnDipThuong)
+                .addComponent(lbDipThuong)
                 .addGap(18, 18, 18)
-                .addComponent(btnQuy)
+                .addComponent(lbNganQuy)
                 .addGap(18, 18, 18)
-                .addComponent(btnInBaoCao)
+                .addComponent(lbHocSinh)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE)
                 .addComponent(btnThoat)
                 .addGap(35, 35, 35))
@@ -260,6 +265,34 @@ public class Danh_sach_hoc_sinh extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void lbTangThuongClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbHoKhauMouseClicked
+        // TODO add your handling code here:
+        Danh_sach_phan_thuong newFrame = new Danh_sach_phan_thuong();
+        newFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_lbTangThuongMouseClicked
+
+    private void lbTangThuongClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbHoKhauMouseClicked
+        // TODO add your handling code here:
+        Danh_sach_phan_thuong newFrame = new Danh_sach_phan_thuong();
+        newFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_lbTangThuongMouseClicked
+
+    private void lbTangThuongClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbHoKhauMouseClicked
+        // TODO add your handling code here:
+        Danh_sach_phan_thuong newFrame = new Danh_sach_phan_thuong();
+        newFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_lbTangThuongMouseClicked
+
+    private void lbTangThuongClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbHoKhauMouseClicked
+        // TODO add your handling code here:
+        Danh_sach_phan_thuong newFrame = new Danh_sach_phan_thuong();
+        newFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_lbTangThuongMouseClicked
+
     private void tfHocKiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfHocKiActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfHocKiActionPerformed
@@ -332,10 +365,10 @@ public class Danh_sach_hoc_sinh extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Quan_ly_cap_phan_thuong;
-    private javax.swing.JLabel btnDipThuong;
-    private javax.swing.JLabel btnInBaoCao;
-    private javax.swing.JLabel btnPhanThuong;
-    private javax.swing.JLabel btnQuy;
+    private javax.swing.JLabel lbDipThuong;
+    private javax.swing.JLabel lbHocSinh;
+    private javax.swing.JLabel lbTangThuong;
+    private javax.swing.JLabel lbNganQuy;
     private javax.swing.JButton btnSuaThongTinHocSinh;
     private javax.swing.JButton btnThemHocKi;
     private javax.swing.JLabel btnThoat;
