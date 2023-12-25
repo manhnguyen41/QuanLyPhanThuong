@@ -31,7 +31,7 @@ public class Danh_sach_quy extends javax.swing.JFrame {
         btnPhanThuong = new javax.swing.JLabel();
         btnDipThuong = new javax.swing.JLabel();
         btnQuy = new javax.swing.JLabel();
-        btnInBaoCao = new javax.swing.JLabel();
+        btnHocSinh = new javax.swing.JLabel();
         btnThoat = new javax.swing.JLabel();
         Quan_ly_cap_phan_thuong = new javax.swing.JLabel();
         Danh_sach_quy_title = new javax.swing.JLabel();
@@ -56,9 +56,9 @@ public class Danh_sach_quy extends javax.swing.JFrame {
         btnQuy.setForeground(new java.awt.Color(255, 255, 255));
         btnQuy.setText("Quỹ");
 
-        btnInBaoCao.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnInBaoCao.setForeground(new java.awt.Color(255, 255, 255));
-        btnInBaoCao.setText("In báo cáo");
+        btnHocSinh.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnHocSinh.setForeground(new java.awt.Color(255, 255, 255));
+        btnHocSinh.setText("Học sinh");
 
         btnThoat.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnThoat.setForeground(new java.awt.Color(255, 255, 255));
@@ -82,7 +82,9 @@ public class Danh_sach_quy extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnDipThuong)
                             .addComponent(btnPhanThuong)
-                            .addComponent(btnInBaoCao))))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(btnHocSinh)))))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -95,7 +97,7 @@ public class Danh_sach_quy extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnQuy)
                 .addGap(18, 18, 18)
-                .addComponent(btnInBaoCao)
+                .addComponent(btnHocSinh)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 195, Short.MAX_VALUE)
                 .addComponent(btnThoat)
                 .addGap(35, 35, 35))
@@ -215,7 +217,7 @@ public class Danh_sach_quy extends javax.swing.JFrame {
     private javax.swing.JLabel Danh_sach_quy_title;
     private javax.swing.JLabel Quan_ly_cap_phan_thuong;
     private javax.swing.JLabel btnDipThuong;
-    private javax.swing.JLabel btnInBaoCao;
+    private javax.swing.JLabel btnHocSinh;
     private javax.swing.JLabel btnPhanThuong;
     private javax.swing.JLabel btnQuy;
     private javax.swing.JLabel btnThoat;
