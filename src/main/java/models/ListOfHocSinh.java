@@ -93,7 +93,7 @@ public class ListOfHocSinh {
     public List<HocSinh> getListOfHocSinhByHocKy(String hocKy) {
         List<HocSinh> filteredList = new ArrayList<>();
         for (HocSinh hocSinh: hocSinhList) {
-            if (hocSinh.getHocKy().equals(hocKy)) {
+            if (hocSinh.getHocKy().contains(hocKy)) {
                 filteredList.add(hocSinh);
             }
         }
