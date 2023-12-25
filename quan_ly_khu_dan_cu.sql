@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 25, 2023 at 05:15 AM
+-- Generation Time: Dec 25, 2023 at 07:59 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -32,9 +32,8 @@ CREATE TABLE `dip_tang_thuong` (
   `thanh_tich` varchar(1024) NOT NULL,
   `hoc_ky` varchar(1024) NOT NULL,
   `ngay_tang_thuong` date NOT NULL,
+  `chi_tiet` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`chi_tiet`)),
   `tong_so_tien` int(11) NOT NULL DEFAULT 0,
-  `so_cuon_vo` int(11) NOT NULL,
-  `gia_tien` int(11) NOT NULL,
   `isDeleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -42,8 +41,8 @@ CREATE TABLE `dip_tang_thuong` (
 -- Dumping data for table `dip_tang_thuong`
 --
 
-INSERT INTO `dip_tang_thuong` (`id_dip_tang_thuong`, `thanh_tich`, `hoc_ky`, `ngay_tang_thuong`, `tong_so_tien`, `so_cuon_vo`, `gia_tien`, `isDeleted`) VALUES
-(17, 'Gioi', '20102', '2023-12-25', 0, 5, 10000, 1);
+INSERT INTO `dip_tang_thuong` (`id_dip_tang_thuong`, `thanh_tich`, `hoc_ky`, `ngay_tang_thuong`, `chi_tiet`, `tong_so_tien`, `isDeleted`) VALUES
+(26, 'Trung thu 2010', 'Trung thu 2010', '2023-12-25', '{\"10 goi bim bim\":50000,\"6 cuon vo\":120000}', 1020000, 0);
 
 -- --------------------------------------------------------
 
@@ -141,7 +140,7 @@ CREATE TABLE `hoc_sinh` (
   `truong` varchar(1024) DEFAULT NULL,
   `lop` varchar(1024) DEFAULT NULL,
   `thanh_tich` varchar(1024) DEFAULT NULL,
-  `hoc_ky` varchar(10) NOT NULL,
+  `hoc_ky` varchar(255) NOT NULL,
   `isDeleted` tinyint(1) NOT NULL DEFAULT 0,
   `ho_ten` varchar(100) NOT NULL,
   `so_ho_khau` varchar(1024) NOT NULL
@@ -152,14 +151,20 @@ CREATE TABLE `hoc_sinh` (
 --
 
 INSERT INTO `hoc_sinh` (`nhan_khau_id`, `truong`, `lop`, `thanh_tich`, `hoc_ky`, `isDeleted`, `ho_ten`, `so_ho_khau`) VALUES
-(2, ' ', ' ', ' ', '20101', 1, 'Tran Thi B', ''),
+(2, ' ', ' ', ' ', '20101', 0, 'Tran Thi B', 'SHK001'),
 (2, ' ', ' ', ' ', '20102', 0, 'Tran Thi B', 'SHK001'),
-(9, ' ', ' ', ' ', '20101', 0, 'Le Thi I', ''),
+(2, ' ', ' ', ' ', 'Trung thu 2010', 0, 'Tran Thi B', 'SHK001'),
+(4, ' ', ' ', ' ', 'Trung thu 2010', 0, 'Pham Thi D', 'SHK001'),
+(8, ' ', ' ', ' ', 'Trung thu 2010', 0, 'Tran Van H', 'SHK002'),
+(9, ' ', ' ', ' ', '20101', 0, 'Le Thi I', 'SHK003'),
 (9, ' ', ' ', ' ', '20102', 0, 'Le Thi I', 'SHK003'),
-(12, ' ', ' ', ' ', '20101', 0, 'Nguyen Thi M', ''),
+(9, ' ', ' ', ' ', 'Trung thu 2010', 0, 'Le Thi I', 'SHK003'),
+(12, ' ', ' ', ' ', '20101', 0, 'Nguyen Thi M', 'SHK003'),
 (12, ' ', ' ', ' ', '20102', 0, 'Nguyen Thi M', 'SHK003'),
-(18, ' ', ' ', ' ', '20101', 0, 'Nguyen Thi Y', ''),
-(18, ' ', ' ', ' ', '20102', 0, 'Nguyen Thi Y', 'SHK002');
+(12, ' ', ' ', ' ', 'Trung thu 2010', 0, 'Nguyen Thi M', 'SHK003'),
+(18, ' ', ' ', ' ', '20101', 0, 'Nguyen Thi Y', 'SHK002'),
+(18, ' ', ' ', ' ', '20102', 0, 'Nguyen Thi Y', 'SHK002'),
+(18, ' ', ' ', ' ', 'Trung thu 2010', 0, 'Nguyen Thi Y', 'SHK002');
 
 -- --------------------------------------------------------
 
@@ -188,6 +193,24 @@ INSERT INTO `ho_khau` (`ho_khau_id`, `so_ho_khau`, `chu_ho_id`, `chu_ho_CMND`, `
 (3, 'SHK003', 9, '789012345', '789 Đường GHI, Quận LMN', 'Có', '2023-03-01', 0),
 (4, 'SHK004', 13, '123012345', '987 Đường KLM, Quận OPQ', 'Có', '2023-04-01', 0),
 (5, 'SHK005', 19, '123456729', '1234 Đường ABC, Quận XYZ', 'Không', '2022-01-01', 0);
+
+--
+-- Triggers `ho_khau`
+--
+DELIMITER $$
+CREATE TRIGGER `after_insert_ho_khau` AFTER INSERT ON `ho_khau` FOR EACH ROW BEGIN
+    INSERT INTO ho_khau_log (ho_khau_id, so_ho_khau, chu_ho_id, chu_ho_CMND, dia_chi, la_chung_cu, ngay_lap, deleted)
+    VALUES (NEW.ho_khau_id, NEW.so_ho_khau, NEW.chu_ho_id, NEW.chu_ho_CMND, NEW.dia_chi, NEW.la_chung_cu, NEW.ngay_lap, NEW.deleted);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_update_ho_khau` AFTER UPDATE ON `ho_khau` FOR EACH ROW BEGIN
+    INSERT INTO ho_khau_log (ho_khau_id, so_ho_khau, chu_ho_id, chu_ho_CMND, dia_chi, la_chung_cu, ngay_lap, deleted)
+    VALUES (NEW.ho_khau_id, NEW.so_ho_khau, NEW.chu_ho_id, NEW.chu_ho_CMND, NEW.dia_chi, NEW.la_chung_cu, NEW.ngay_lap, NEW.deleted);
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -296,7 +319,7 @@ CREATE TABLE `ngan_quy_tang_thuong` (
 --
 
 INSERT INTO `ngan_quy_tang_thuong` (`id_ngan_quy_tang_thuong`, `so_tien_thay_doi`, `ngay_thay_doi`, `tong_so_tien`, `chi_tiet`, `isDeleted`) VALUES
-(17, 0, '2023-12-25', 0, 'Thuong hoc sinh Gioi hoc ky 20102', 1);
+(26, 1020000, '2023-12-25', -1020000, 'Thuong hoc sinh Trung thu 2010 hoc ky Trung thu 2010', 0);
 
 -- --------------------------------------------------------
 
@@ -349,10 +372,31 @@ INSERT INTO `nhan_khau` (`nhan_khau_id`, `ho_ten`, `biet_danh`, `gioi_tinh`, `ng
 (15, 'Phan Van P', NULL, 'Nam', '1983-03-18', '901234567', NULL, NULL, 'Hanoi', 'Hanoi', 'Kinh', 'Giáo viên', '', 'Con', '2023-04-03', NULL, 'Không', 0, 'SHK004', 'Không'),
 (16, 'Tran Thi Q', NULL, 'Nữ', '1988-04-23', '234567890', NULL, NULL, 'Hanoi', 'Hanoi', 'Kinh', 'Nhân viên kế toán', '', 'Con', '2023-04-04', NULL, 'Không', 0, 'SHK004', 'Không'),
 (17, 'Nguyen Van X', 'X', 'Nam', '1990-01-01', '123456781', '2022-01-01', 'TP Hanoi', 'TP Hanoi', 'TP Hanoi', 'Kinh', 'Sinh viên', 'Trường ABC', 'Con', '2022-01-01', '123 Đường ABC, Quận XYZ', 'Không', 0, 'SHK001', 'Không'),
-(18, 'Nguyen Thi Y', '', 'Nữ', '1995-02-15', '987054321', '2022-01-01', 'TP Hanoi', 'TP Hanoi', 'TP Hanoi', 'Kinh', 'Sinh viên', 'Trường XYZ', 'Con', '2022-01-01', '456 Đường XYZ, Quận UVW', 'Không', 0, 'SHK002', 'Không'),
+(18, 'Nguyen Thi Y', '', 'Nữ', '1995-02-15', '987054321', '2022-01-01', 'TP Hanoi', 'TP Hanoi', 'TP Hanoi', 'Kinh', 'Sinh viên', 'Trường XYZ', 'Con', '2022-01-01', '456 Đường XYZ, Quận UVW', 'Không', 0, 'SHK002', 'Có'),
 (19, 'Nguyen Van rA', 'A', 'Nam', '1990-01-01', '123456729', '2022-01-01', 'TP Hanoi', 'TP Hanoi', 'TP Hanoi', 'Kinh', 'Sinh viên', 'Trường ABC', 'Chủ hộ', '2022-01-01', '1233 Đường ABC, Quận XYZ', 'Không', 0, 'SHK005', 'Không'),
 (46, 'Trần A A', 'A A', 'Nam', '2020-02-02', '', NULL, '', 'Hanoi', 'Hanoi', 'Hanoi', '', '', 'Con', '2020-02-02', '', 'Không', 0, 'SHK003', 'Không'),
 (47, 'Trần POPO', 'POPO', 'Nữ', '2020-02-02', '342422434', '2020-02-02', 'Hải Phòng', 'Hải Phòng', 'Hải Phòng', 'Kinh', 'Sinh viên', 'Trường T', 'Vợ', '2020-02-02', '', 'Không', 0, 'SHK005', 'Không');
+
+--
+-- Triggers `nhan_khau`
+--
+DELIMITER $$
+CREATE TRIGGER `trg_them_moi_khai_tu` AFTER UPDATE ON `nhan_khau` FOR EACH ROW BEGIN
+    IF NEW.qua_doi = 'Có' AND OLD.qua_doi = 'Không' THEN
+        INSERT INTO khai_tu (nhan_khau_id, thoi_gian, ly_do, deleted)
+        VALUES (NEW.nhan_khau_id, NOW(), '', 0);
+    END IF;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `trg_xoa_khai_tu` AFTER UPDATE ON `nhan_khau` FOR EACH ROW BEGIN
+    IF NEW.qua_doi = 'Không' AND OLD.qua_doi = 'Có' THEN
+        UPDATE khai_tu SET deleted = 1 WHERE nhan_khau_id = NEW.nhan_khau_id;
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -367,18 +411,19 @@ CREATE TABLE `tam_vang` (
   `ngay_ket_thuc` date DEFAULT NULL,
   `ly_do` varchar(255) DEFAULT NULL,
   `so_CMND` varchar(15) DEFAULT NULL,
-  `dia_chi_noi_den` varchar(255) DEFAULT NULL
+  `dia_chi_noi_den` varchar(255) DEFAULT NULL,
+  `deleted` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tam_vang`
 --
 
-INSERT INTO `tam_vang` (`tam_vang_id`, `nhan_khau_id`, `ngay_bat_dau`, `ngay_ket_thuc`, `ly_do`, `so_CMND`, `dia_chi_noi_den`) VALUES
-(1, 1, '2023-01-01', '2023-02-01', 'Công tác', '123456789', 'Địa chỉ 1'),
-(2, 2, '2023-03-01', '2023-04-01', 'Du lịch', '987654321', 'Địa chỉ 2'),
-(4, 3, '2023-05-01', '2023-06-01', 'Học tập', '456789123', 'Địa chỉ 3'),
-(5, 16, '2023-03-03', '2023-09-03', 'Đi học', '234567890', '234 phố ABC');
+INSERT INTO `tam_vang` (`tam_vang_id`, `nhan_khau_id`, `ngay_bat_dau`, `ngay_ket_thuc`, `ly_do`, `so_CMND`, `dia_chi_noi_den`, `deleted`) VALUES
+(1, 1, '2023-01-01', '2023-02-01', 'Công tác', '123456789', 'Địa chỉ 1', 0),
+(2, 2, '2023-03-01', '2023-04-01', 'Du lịch', '987654321', 'Địa chỉ 2', 0),
+(4, 3, '2023-05-01', '2023-06-01', 'Học tập', '456789123', 'Địa chỉ 3', 0),
+(5, 16, '2023-03-03', '2023-09-03', 'Đi học', '234567890', '234 phố ABC', 0);
 
 -- --------------------------------------------------------
 
@@ -393,6 +438,15 @@ CREATE TABLE `tang_thuong` (
   `chi_tiet_phan_qua` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`chi_tiet_phan_qua`)),
   `isDeleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tang_thuong`
+--
+
+INSERT INTO `tang_thuong` (`id_dip_tang_thuong`, `so_ho_khau`, `hoc_ky`, `chi_tiet_phan_qua`, `isDeleted`) VALUES
+(26, 'SHK001', 'Trung thu 2010', '{\"Trung thu 2010\":2}', 0),
+(26, 'SHK002', 'Trung thu 2010', '{\"Trung thu 2010\":2}', 0),
+(26, 'SHK003', 'Trung thu 2010', '{\"Trung thu 2010\":2}', 0);
 
 -- --------------------------------------------------------
 
@@ -518,7 +572,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `dip_tang_thuong`
 --
 ALTER TABLE `dip_tang_thuong`
-  MODIFY `id_dip_tang_thuong` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_dip_tang_thuong` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `dong_gop`
