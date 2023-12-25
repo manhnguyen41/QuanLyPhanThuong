@@ -1,17 +1,14 @@
 package models;
 
 import dbConnector.Connector;
-import jsonHandle.WriteToJson;
+import textHandle.WriteToJson;
 
-import javax.swing.*;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DipTangThuong implements DBActing{
     // Attribute
@@ -20,44 +17,43 @@ public class DipTangThuong implements DBActing{
     private String hocKy;
     private String ngayTangThuong;
     private int tongSoTien;
-    private int soCuonVo;
-    private int giaTien;
+    private Map<String, Integer> chiTiet = new HashMap<>();
     private boolean isDeleted = false;
-    private ListOfHocSinh listOfHocSinh;
+    private List<HocSinh> listOfHocSinh;
     private NganQuyTangThuong nganQuyTangThuong;
 
     // Constructor
     public DipTangThuong(String thanhTich, String hocKy,
-                         int soCuonVo, int giaTien) {
-        this.thanhTich = thanhTich;
+                         Map<String, Integer> chiTiet) {
+        this.thanhTich = thanhTich.equals(" ") ? hocKy : thanhTich;
         this.hocKy = hocKy;
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         this.ngayTangThuong = currentDate.format(formatter);
-        this.soCuonVo = soCuonVo;
-        this.giaTien = giaTien;
-        listOfHocSinh = new ListOfHocSinh();
+        this.chiTiet = chiTiet;
+        listOfHocSinh = filter(new ListOfHocSinh());
         calculateTongSoTien();
     }
     public DipTangThuong(int idDipTangThuong, String thanhTich, String hocKy, String ngayTangThuong,
-                         int tongSoTien, int soCuonVo, int giaTien, boolean isDeleted,
+                         int tongSoTien, Map<String, Integer> chiTiet, boolean isDeleted,
                          ListOfHocSinh listOfHocSinh) {
         this.idDipTangThuong = idDipTangThuong;
         this.thanhTich = thanhTich;
         this.hocKy = hocKy;
         this.ngayTangThuong = ngayTangThuong;
         this.tongSoTien = tongSoTien;
-        this.soCuonVo = soCuonVo;
-        this.giaTien = giaTien;
+        this.chiTiet = chiTiet;
         this.isDeleted = isDeleted;
-        this.listOfHocSinh = listOfHocSinh;
+        this.listOfHocSinh = filter(listOfHocSinh);
     }
 
     // Method to calculate tongSoTien
     public void calculateTongSoTien() {
-        List<HocSinh> hocSinhList = listOfHocSinh.getListOfHocSinhByHocKyAndThanhTich(hocKy, thanhTich);
-        int soTien = soCuonVo * giaTien;
-        soTien *= hocSinhList.size();
+        int soTien = 0;
+        for (Integer giaTien: chiTiet.values()) {
+            soTien += giaTien;
+        }
+        soTien *= listOfHocSinh.size();
         tongSoTien = soTien;
     }
 
@@ -73,16 +69,14 @@ public class DipTangThuong implements DBActing{
                     "  `thanh_tich`,\n" +
                     "  `hoc_ky`,\n" +
                     "  `ngay_tang_thuong`,\n" +
-                    "  `tong_so_tien`,\n" +
-                    "  `so_cuon_vo`,\n" +
-                    "  `gia_tien`\n" +
+                    "  `chi_tiet`,\n" +
+                    "  `tong_so_tien`\n" +
                     ") VALUES (\n" +
                     "  '" + thanhTich +
                     "', '" + hocKy +
                     "', '" + ngayTangThuong +
+                    "',  '" + WriteToJson.mapToJson(chiTiet) +
                     "',  " + tongSoTien +
-                    ",   " + soCuonVo +
-                    ",   " + giaTien +
                     ");\n";
 
             PreparedStatement add = connection.prepareStatement(insertQuery);
@@ -100,11 +94,11 @@ public class DipTangThuong implements DBActing{
             nganQuyTangThuong = new NganQuyTangThuong(idDipTangThuong, tongSoTien, "Thuong hoc sinh " + thanhTich + " hoc ky " + hocKy);
             nganQuyTangThuong.addNewRow();
 
-            for (HocSinh hocSinh: listOfHocSinh.getListOfHocSinhByHocKyAndThanhTich(hocKy, thanhTich)) {
+            for (HocSinh hocSinh: listOfHocSinh) {
                 ListOfTangThuong listOfTangThuong = new ListOfTangThuong();
                 TangThuong tangThuong = new TangThuong(idDipTangThuong, hocSinh.getSoHoKhau(), hocKy);
                 int index = listOfTangThuong.getTangThuongList().indexOf(tangThuong);
-                if (index > 0) {
+                if (index >= 0) {
                     tangThuong = listOfTangThuong.getTangThuongList().get(index);
                     if (tangThuong.getChiTietPhanQua().containsKey(thanhTich)) {
                         tangThuong.getChiTietPhanQua().replace(thanhTich, tangThuong.getChiTietPhanQua().get(thanhTich) + 1);
@@ -141,9 +135,8 @@ public class DipTangThuong implements DBActing{
                     "  `thanh_tich` = '" + thanhTich +
                     "', `hoc_ky` = '" + hocKy +
                     "', `tong_so_tien` = " + tongSoTien +
-                    ", `so_cuon_vo` = " + soCuonVo +
-                    ", `gia_tien` = " + giaTien +
-                    " WHERE\n" +
+                    ", `chi_tiet` = '" + WriteToJson.mapToJson(chiTiet) +
+                    "' WHERE\n" +
                     "  `id_dip_tang_thuong` = " + idDipTangThuong + ";";
 
             PreparedStatement edit = connection.prepareStatement(updateQuery);
@@ -158,11 +151,11 @@ public class DipTangThuong implements DBActing{
                 tangThuong.deleteRow();
             }
 
-            for (HocSinh hocSinh: listOfHocSinh.getListOfHocSinhByHocKyAndThanhTich(hocKy, thanhTich)) {
+            for (HocSinh hocSinh: listOfHocSinh) {
                 listOfTangThuong = new ListOfTangThuong();
                 TangThuong tangThuong = new TangThuong(idDipTangThuong, hocSinh.getSoHoKhau(), hocKy);
                 int index = listOfTangThuong.getTangThuongList().indexOf(tangThuong);
-                if (index > 0) {
+                if (index >= 0) {
                     tangThuong = listOfTangThuong.getTangThuongList().get(index);
                     if (tangThuong.getChiTietPhanQua().containsKey(thanhTich)) {
                         tangThuong.getChiTietPhanQua().replace(thanhTich, tangThuong.getChiTietPhanQua().get(thanhTich) + 1);
@@ -219,6 +212,19 @@ public class DipTangThuong implements DBActing{
         }
     }
 
+    // Filter
+    private List<HocSinh> filter(ListOfHocSinh listOfHocSinh) {
+        List<HocSinh> hocSinhList;
+        if (Character.isDigit(hocKy.indexOf(0))) {
+            hocSinhList = listOfHocSinh.
+                    getListOfHocSinhByHocKyAndThanhTich(hocKy, thanhTich);
+        } else {
+            hocSinhList = listOfHocSinh.
+                    getListOfHocSinhByHocKy(hocKy);
+        }
+        return hocSinhList;
+    }
+
     // Getter and Setter
 
     public int getIdDipTangTuong() {
@@ -261,20 +267,12 @@ public class DipTangThuong implements DBActing{
         this.tongSoTien = tongSoTien;
     }
 
-    public int getSoCuonVo() {
-        return soCuonVo;
+    public Map<String, Integer> getChiTiet() {
+        return chiTiet;
     }
 
-    public void setSoCuonVo(int soCuonVo) {
-        this.soCuonVo = soCuonVo;
-    }
-
-    public int getGiaTien() {
-        return giaTien;
-    }
-
-    public void setGiaTien(int giaTien) {
-        this.giaTien = giaTien;
+    public void setChiTiet(Map<String, Integer> chiTiet) {
+        this.chiTiet = chiTiet;
     }
 
     public NganQuyTangThuong getNganQuyTangThuong() {

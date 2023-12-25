@@ -1,7 +1,7 @@
 package models;
 
 import dbConnector.Connector;
-import jsonHandle.WriteToJson;
+import textHandle.WriteToJson;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

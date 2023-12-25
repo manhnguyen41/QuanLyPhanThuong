@@ -1,6 +1,7 @@
 package models;
 
 import dbConnector.Connector;
+import textHandle.ReadFromJson;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -29,8 +30,7 @@ public class ListOfDipTangThuong{
                         resultSet.getString("hoc_ky"),
                         resultSet.getString("ngay_tang_thuong"),
                         resultSet.getInt("tong_so_tien"),
-                        resultSet.getInt("so_cuon_vo"),
-                        resultSet.getInt("gia_tien"),
+                        ReadFromJson.jsonToMap(resultSet.getString("chi_tiet")),
                         resultSet.getBoolean("isDeleted"),
                         listOfHocSinh);
                 ListOfNganQuy listOfNganQuy = new ListOfNganQuy();
@@ -59,8 +59,8 @@ public class ListOfDipTangThuong{
     // Method to  DipTangThuong base on hocKy and thanhTich
     public DipTangThuong getListOfDipTangThuongByHocKyAndThanhTich(String hocKy, String thanhTich) {
         for (DipTangThuong dipTangThuong: dipTangThuongList) {
-            if (dipTangThuong.getHocKy().equals(hocKy)
-                    && dipTangThuong.getThanhTich().equals(thanhTich)) {
+            if (dipTangThuong.getHocKy().contains(hocKy)
+                    && dipTangThuong.getThanhTich().contains(thanhTich)) {
                 return dipTangThuong;
             }
         }
@@ -77,6 +77,8 @@ public class ListOfDipTangThuong{
         }
         return filteredList;
     }
+
+    // Get newest hoc ky
 
     // Getter and Setter
     public List<DipTangThuong> getDipTangThuongList() {

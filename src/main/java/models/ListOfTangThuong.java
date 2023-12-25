@@ -1,7 +1,7 @@
 package models;
 
 import dbConnector.Connector;
-import jsonHandle.ReadFromJson;
+import textHandle.ReadFromJson;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

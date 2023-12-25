@@ -36,29 +36,56 @@ public class ListOfHocSinh {
 
     // Method to add a new list of Hoc Sinh base on hoc ky
     public void addNewHocKy(String hocKy) {
-        int year = Integer.parseInt(hocKy.substring(0, 4));
+        if (Character.isDigit(hocKy.charAt(0))) {
+            int year = Integer.parseInt(hocKy.substring(0, 4));
 
-        try {
-            Connection connection = Connector.getConnection();
+            try {
+                Connection connection = Connector.getConnection();
 
-            String selectQuery = "SELECT\n" +
-                    "  `nhan_khau_id`,\n" +
-                    "  `ho_ten`,\n" +
-                    "  `so_ho_khau`\n" +
-                    "  FROM nhan_khau WHERE YEAR(ngay_sinh) > "
-                    + (year - 17) + " AND YEAR(ngay_sinh) < "+ (year - 6) + ";";
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(selectQuery);
-            while (resultSet.next()) {
-                HocSinh hocSinh = new HocSinh(resultSet.getInt("nhan_khau_id"),
-                        hocKy, resultSet.getString("ho_ten"), resultSet.getString("so_ho_khau"));
-                hocSinh.addNewRow();
-                hocSinhList.add(hocSinh);
-                System.out.println(hocSinh.getNhanKhauId());
+                String selectQuery = "SELECT\n" +
+                        "  `nhan_khau_id`,\n" +
+                        "  `ho_ten`,\n" +
+                        "  `so_ho_khau`\n" +
+                        "  FROM nhan_khau WHERE YEAR(ngay_sinh) > "
+                        + (year - 17) + " AND YEAR(ngay_sinh) < "+ (year - 6) + ";";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(selectQuery);
+                while (resultSet.next()) {
+                    HocSinh hocSinh = new HocSinh(resultSet.getInt("nhan_khau_id"),
+                            hocKy, resultSet.getString("ho_ten"), resultSet.getString("so_ho_khau"));
+                    hocSinh.addNewRow();
+                    hocSinhList.add(hocSinh);
+                    System.out.println(hocSinh.getNhanKhauId());
+                }
+                connection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            connection.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } else {
+            int year = Integer.parseInt(hocKy.substring(hocKy.length() - 4));
+
+            try {
+                Connection connection = Connector.getConnection();
+
+                String selectQuery = "SELECT\n" +
+                        "  `nhan_khau_id`,\n" +
+                        "  `ho_ten`,\n" +
+                        "  `so_ho_khau`\n" +
+                        "  FROM nhan_khau WHERE YEAR(ngay_sinh) >= "
+                        + (year - 18) + " AND YEAR(ngay_sinh) <= "+ (year - 1) + ";";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(selectQuery);
+                while (resultSet.next()) {
+                    HocSinh hocSinh = new HocSinh(resultSet.getInt("nhan_khau_id"),
+                            hocKy, resultSet.getString("ho_ten"), resultSet.getString("so_ho_khau"));
+                    hocSinh.addNewRow();
+                    hocSinhList.add(hocSinh);
+                    System.out.println(hocSinh.getNhanKhauId());
+                }
+                connection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -92,10 +119,12 @@ public class ListOfHocSinh {
         return filteredList;
     }
 
-    // Method to get HocSinh by hoTen and soHoKhau
-    public HocSinh getHocSinhByHoTenAndSoHoKhau(String hoTen, String soHoKhau) {
+    // Method to get HocSinh by hoTen, soHoKhau and hocKy
+    public HocSinh getHocSinhByHoTenSoHoKhauHocKy(String hoTen, String soHoKhau, String hocKy) {
         for (HocSinh hocSinh: hocSinhList) {
-            if (hocSinh.getHoTen().equals(hoTen) && hocSinh.getSoHoKhau().equals(soHoKhau)) {
+            if (hocSinh.getHoTen().equals(hoTen)
+                    && hocSinh.getSoHoKhau().equals(soHoKhau)
+                    && hocSinh.getHocKy().equals(hocKy)) {
                 return hocSinh;
             }
         }

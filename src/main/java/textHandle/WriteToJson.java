@@ -1,7 +1,6 @@
-package jsonHandle;
+package textHandle;
 
 import com.google.gson.Gson;
-import org.json.JSONObject;
 
 import java.util.Map;
 
