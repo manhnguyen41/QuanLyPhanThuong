@@ -187,13 +187,9 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
 
         tDipThuong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
             },
             new String [] {
-                "Title 1", "Title 2"
+                "Dịp Thưởng ID", "Dịp thưởng", "Ngày Tặng Thưởng", "Thành Tích"
             }
         ));
         jScrollPane2.setViewportView(tDipThuong);
