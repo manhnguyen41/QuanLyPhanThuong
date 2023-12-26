@@ -5,8 +5,9 @@
 package cnpm_fe;
 
 import models.DipTangThuong;
+import textHandle.ReadMapFromText;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 /**
  *
@@ -41,8 +42,6 @@ public class Them_dip_thuong extends javax.swing.JFrame {
         tfSoLuong = new javax.swing.JTextField();
         btnLuu = new javax.swing.JButton();
         btnHuy = new javax.swing.JButton();
-        lbGiaTien = new javax.swing.JLabel();
-        tfGiaTien = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(216, 25));
@@ -64,7 +63,7 @@ public class Them_dip_thuong extends javax.swing.JFrame {
         lbHocKi.setText("Học Kì");
 
         lbSoLuong.setForeground(new java.awt.Color(0, 102, 102));
-        lbSoLuong.setText("Số lượng");
+        lbSoLuong.setText("Chi Tiết");
 
         btnLuu.setBackground(new java.awt.Color(0, 51, 51));
         btnLuu.setForeground(new java.awt.Color(255, 255, 255));
@@ -94,9 +93,6 @@ public class Them_dip_thuong extends javax.swing.JFrame {
             }
         });
 
-        lbGiaTien.setForeground(new java.awt.Color(0, 102, 102));
-        lbGiaTien.setText("Giá tiền");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -108,21 +104,19 @@ public class Them_dip_thuong extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbHocKi)
                             .addComponent(lbThanhTich)
-                            .addComponent(lbSoLuong)
-                            .addComponent(lbGiaTien))
+                            .addComponent(lbSoLuong))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lbThemThongTin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(tfThanhTich)
                             .addComponent(tfHocKi)
-                            .addComponent(tfSoLuong)
-                            .addComponent(tfGiaTien)))
+                            .addComponent(tfSoLuong)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(103, 103, 103)
                         .addComponent(btnLuu)
                         .addGap(103, 103, 103)
                         .addComponent(btnHuy)))
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,15 +135,11 @@ public class Them_dip_thuong extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbSoLuong))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbGiaTien)
-                    .addComponent(tfGiaTien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(88, 88, 88)
+                .addGap(128, 128, 128)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLuu)
                     .addComponent(btnHuy))
-                .addContainerGap(165, Short.MAX_VALUE))
+                .addContainerGap(166, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -191,11 +181,14 @@ public class Them_dip_thuong extends javax.swing.JFrame {
 
     private void btnLuuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLuuMouseClicked
         // TODO add your handling code here:
-        if(tfThanhTich.getText().isEmpty() || tfHocKi.getText().isEmpty() || tfSoLuong.getText().isEmpty()
-                || tfGiaTien.getText().isEmpty()){
+        if(tfThanhTich.getText().isEmpty() || tfHocKi.getText().isEmpty() || tfSoLuong.getText().isEmpty()){
             JOptionPane.showMessageDialog(this, "Vui lòng điền đủ thông tin");
         }
-
+        String thanhTich = tfThanhTich.getText();
+        String HocKi = tfHocKi.getText();
+        String chiTiet = tfSoLuong.getText();
+        DipTangThuong dipTangThuong = new DipTangThuong(thanhTich, HocKi, ReadMapFromText.readMapFromText(chiTiet));
+        dipTangThuong.addNewRow();
     }//GEN-LAST:event_btnLuuMouseClicked
 
     /**
@@ -237,12 +230,10 @@ public class Them_dip_thuong extends javax.swing.JFrame {
     private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnLuu;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lbGiaTien;
     private javax.swing.JLabel lbHocKi;
     private javax.swing.JLabel lbSoLuong;
     private javax.swing.JLabel lbThanhTich;
     private javax.swing.JLabel lbThemThongTin;
-    private javax.swing.JTextField tfGiaTien;
     private javax.swing.JTextField tfHocKi;
     private javax.swing.JTextField tfSoLuong;
     private javax.swing.JTextField tfThanhTich;

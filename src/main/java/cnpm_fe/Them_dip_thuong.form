@@ -57,7 +57,6 @@
                               <Component id="lbHocKi" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="lbThanhTich" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="lbSoLuong" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lbGiaTien" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -65,7 +64,6 @@
                               <Component id="tfThanhTich" max="32767" attributes="0"/>
                               <Component id="tfHocKi" max="32767" attributes="0"/>
                               <Component id="tfSoLuong" max="32767" attributes="0"/>
-                              <Component id="tfGiaTien" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -75,7 +73,7 @@
                           <Component id="btnHuy" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="108" max="32767" attributes="0"/>
+                  <EmptySpace pref="125" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -99,17 +97,12 @@
                       <Component id="tfSoLuong" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lbSoLuong" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lbGiaTien" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="tfGiaTien" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="128" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnLuu" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnHuy" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="165" max="32767" attributes="0"/>
+                  <EmptySpace pref="166" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -154,7 +147,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="66" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="S&#x1ed1; l&#x1b0;&#x1ee3;ng"/>
+            <Property name="text" type="java.lang.String" value="Chi Ti&#x1ebf;t"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfSoLuong">
@@ -188,16 +181,6 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnHuyMouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHuyActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lbGiaTien">
-          <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="66" green="66" red="0" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Gi&#xe1; ti&#x1ec1;n"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="tfGiaTien">
         </Component>
       </SubComponents>
     </Container>
