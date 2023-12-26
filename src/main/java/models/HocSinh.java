@@ -34,7 +34,7 @@ public class HocSinh implements DBActing{
 
     // Phuong thuc de them mot dong vao csdl
     @Override
-    public void addNewRow() {
+    public boolean addNewRow() {
         try {
             Connection connection = Connector.getConnection();
 
@@ -63,15 +63,16 @@ public class HocSinh implements DBActing{
 
             add.close();
             connection.close();
-
+            return true;
         } catch (Exception e) {
-            throw new RuntimeException("Hoc ky " + hocKy + " da co");
+            e.printStackTrace();
+            return false;
         }
     }
 
     // Phuong thuc de sua mot dip tang thuong
     @Override
-    public void editRow() {
+    public boolean editRow() {
         try {
             Connection connection = Connector.getConnection();
 
@@ -91,15 +92,16 @@ public class HocSinh implements DBActing{
 
             edit.close();
             connection.close();
-
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 
     // Phuong thuc de xoa mot dip tang thuong
     @Override
-    public void deleteRow() {
+    public boolean deleteRow() {
         try {
             Connection connection = Connector.getConnection();
 
@@ -119,9 +121,10 @@ public class HocSinh implements DBActing{
 
             edit.close();
             connection.close();
-
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 

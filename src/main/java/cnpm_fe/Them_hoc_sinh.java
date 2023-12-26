@@ -188,8 +188,13 @@ public class Them_hoc_sinh extends javax.swing.JFrame {
             hocSinh.setThanhTich(cbThanhTich.getSelectedItem().toString());
             hocSinh.setLop(tfLop.getText());
             hocSinh.setTruong(tfTruong.getText());
-            hocSinh.editRow();
-            this.dispose();
+            boolean status = hocSinh.editRow();
+            if (status) {
+                JOptionPane.showMessageDialog(this, "Sửa thành công");
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Sửa không thành công");
+            }
         }
     }//GEN-LAST:event_btnLuuMouseClicked
 

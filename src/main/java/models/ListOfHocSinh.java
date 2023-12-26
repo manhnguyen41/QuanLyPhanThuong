@@ -35,7 +35,7 @@ public class ListOfHocSinh {
     }
 
     // Method to add a new list of Hoc Sinh base on hoc ky
-    public void addNewHocKy(String hocKy) {
+    public boolean addNewHocKy(String hocKy) {
         if (Character.isDigit(hocKy.charAt(0))) {
             int year = Integer.parseInt(hocKy.substring(0, 4));
 
@@ -58,8 +58,10 @@ public class ListOfHocSinh {
                     System.out.println(hocSinh.getNhanKhauId());
                 }
                 connection.close();
+                return true;
             } catch (Exception e) {
                 e.printStackTrace();
+                return false;
             }
         } else {
             int year = Integer.parseInt(hocKy.substring(hocKy.length() - 4));
@@ -83,8 +85,10 @@ public class ListOfHocSinh {
                     System.out.println(hocSinh.getNhanKhauId());
                 }
                 connection.close();
+                return true;
             } catch (Exception e) {
                 e.printStackTrace();
+                return false;
             }
         }
     }
@@ -104,16 +108,8 @@ public class ListOfHocSinh {
     public List<HocSinh> getListOfHocSinhByHocKyAndThanhTich(String hocKy, String thanhTich) {
         List<HocSinh> filteredList = new ArrayList<>();
         for (HocSinh hocSinh: hocSinhList) {
-            if (hocSinh.getHocKy().equals(hocKy)) {
-                if (thanhTich.equals("Trung binh")) {
-                    if (hocSinh.getThanhTich().equals(thanhTich) || hocSinh.getThanhTich().equals(" ")) {
-                        filteredList.add(hocSinh);
-                    }
-                } else {
-                    if (hocSinh.getThanhTich().equals(thanhTich)) {
-                        filteredList.add(hocSinh);
-                    }
-                }
+            if (hocSinh.getHocKy().equals(hocKy) && hocSinh.getThanhTich().equals(thanhTich)) {
+                filteredList.add(hocSinh);
             }
         }
         return filteredList;

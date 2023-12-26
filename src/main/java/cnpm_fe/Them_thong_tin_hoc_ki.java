@@ -154,9 +154,13 @@ public class Them_thong_tin_hoc_ki extends javax.swing.JFrame {
         String dipThuong = tfHocKi.getText();
         if (dipThuong.matches("^\\d{5}$")
             | dipThuong.matches("^.+ \\d{4}$")) {
-            listOfHocSinh.addNewHocKy(dipThuong);
-            JOptionPane.showMessageDialog(this, "Thêm thành công");
-            this.dispose();
+            boolean status = listOfHocSinh.addNewHocKy(dipThuong);
+            if (status) {
+                JOptionPane.showMessageDialog(this, "Thêm thành công");
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Dịp thưởng bị trùng");
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Vui lòng điền đúng định dạng");
         }

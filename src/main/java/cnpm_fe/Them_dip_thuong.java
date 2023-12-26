@@ -5,8 +5,10 @@
 package cnpm_fe;
 
 import models.DipTangThuong;
+import textHandle.ReadMapFromText;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  *
@@ -17,8 +19,7 @@ public class Them_dip_thuong extends javax.swing.JFrame {
     /**
      * Creates new form Them_dip_thuong
      */
-    public Them_dip_thuong(DipTangThuong dipTangThuong) {
-        this.dipTangThuong = dipTangThuong;
+    public Them_dip_thuong() {
         initComponents();
     }
 
@@ -34,18 +35,18 @@ public class Them_dip_thuong extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lbThemThongTin = new javax.swing.JLabel();
         lbThanhTich = new javax.swing.JLabel();
-        tfThanhTich = new javax.swing.JTextField();
-        lbHocKi = new javax.swing.JLabel();
+        cbThanhTich = new javax.swing.JComboBox<>();
+        lbDipThuong = new javax.swing.JLabel();
         tfHocKi = new javax.swing.JTextField();
-        lbSoLuong = new javax.swing.JLabel();
-        tfSoLuong = new javax.swing.JTextField();
         btnLuu = new javax.swing.JButton();
         btnHuy = new javax.swing.JButton();
-        lbGiaTien = new javax.swing.JLabel();
-        tfGiaTien = new javax.swing.JTextField();
+        lbChiTiet = new JLabel();
+        taChiTiet = new JTextArea();
+        taLuuY = new JTextArea();
+        spLuuY = new JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(216, 25));
+        setPreferredSize(new Dimension(600, 700));
 
         lbThemThongTin.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbThemThongTin.setForeground(new java.awt.Color(0, 102, 102));
@@ -54,17 +55,14 @@ public class Them_dip_thuong extends javax.swing.JFrame {
         lbThanhTich.setForeground(new java.awt.Color(0, 102, 102));
         lbThanhTich.setText("Thành tích");
 
-        tfThanhTich.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfThanhTichActionPerformed(evt);
-            }
-        });
+        cbThanhTich.setModel(new javax.swing.DefaultComboBoxModel<>(
+            new String[] { "Giỏi", "Tiên tiến", "Trung bình", ""}));
 
-        lbHocKi.setForeground(new java.awt.Color(0, 102, 102));
-        lbHocKi.setText("Học Kì");
+        lbDipThuong.setForeground(new java.awt.Color(0, 102, 102));
+        lbDipThuong.setText("Dịp thưởng");
 
-        lbSoLuong.setForeground(new java.awt.Color(0, 102, 102));
-        lbSoLuong.setText("Số lượng");
+        lbChiTiet.setForeground(new java.awt.Color(0, 102, 102));
+        lbChiTiet.setText("Chi tiết");
 
         btnLuu.setBackground(new java.awt.Color(0, 51, 51));
         btnLuu.setForeground(new java.awt.Color(255, 255, 255));
@@ -94,8 +92,22 @@ public class Them_dip_thuong extends javax.swing.JFrame {
             }
         });
 
-        lbGiaTien.setForeground(new java.awt.Color(0, 102, 102));
-        lbGiaTien.setText("Giá tiền");
+        taChiTiet.setColumns(20);
+        taChiTiet.setRows(10);
+
+        taLuuY.setColumns(10);
+        taLuuY.setForeground(new java.awt.Color(0, 102, 102));
+        taLuuY.setRows(5);
+        taLuuY.setText("- Mục dịp thưởng phải được điền với định dạng: \n" +
+            "   + \"năm học + học kỳ\" cho việc tặng thưởng cuối năm học \n" +
+            "(Ví dụ: 20231)\n" +
+            "   + \"tên dịp + năm\" cho việc tặng thưởng dịp lễ \n" +
+            "(Ví dụ: Trung thu 2023)\n" +
+            "- Mục thành tích thì để trống nếu dịp thưởng là dịp lễ\n" +
+            "- Mục chi tiết phải được điền với định dạng: \n" +
+            "   + \"tên quà: + giá tiền\", các món quà ngăn cách bởi dấu ','\n" +
+            "(Ví dụ: 6 goi bim bim: 100000, 5 cuon vo: 50000");
+        spLuuY.setViewportView(taLuuY);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -106,21 +118,21 @@ public class Them_dip_thuong extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbHocKi)
+                            .addComponent(lbDipThuong)
                             .addComponent(lbThanhTich)
-                            .addComponent(lbSoLuong)
-                            .addComponent(lbGiaTien))
+                            .addComponent(lbChiTiet)
+                        )
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
                             .addComponent(lbThemThongTin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tfThanhTich)
+                            .addComponent(cbThanhTich)
                             .addComponent(tfHocKi)
-                            .addComponent(tfSoLuong)
-                            .addComponent(tfGiaTien)))
+                            .addComponent(taChiTiet)
+                            .addComponent(spLuuY)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(103, 103, 103)
                         .addComponent(btnLuu)
-                        .addGap(103, 103, 103)
+                        .addGap(290, 290, 290)
                         .addComponent(btnHuy)))
                 .addContainerGap(108, Short.MAX_VALUE))
         );
@@ -132,20 +144,18 @@ public class Them_dip_thuong extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbThanhTich)
-                    .addComponent(tfThanhTich, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbThanhTich, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbHocKi)
+                    .addComponent(lbDipThuong)
                     .addComponent(tfHocKi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbSoLuong))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbGiaTien)
-                    .addComponent(tfGiaTien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(88, 88, 88)
+                    .addComponent(taChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbChiTiet))
+                .addGap(44, 44, 44)
+                .addComponent(spLuuY)
+                .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLuu)
                     .addComponent(btnHuy))
@@ -191,11 +201,43 @@ public class Them_dip_thuong extends javax.swing.JFrame {
 
     private void btnLuuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLuuMouseClicked
         // TODO add your handling code here:
-        if(tfThanhTich.getText().isEmpty() || tfHocKi.getText().isEmpty() || tfSoLuong.getText().isEmpty()
-                || tfGiaTien.getText().isEmpty()){
+        String dipThuong = tfHocKi.getText();
+        String thanhTich = cbThanhTich.getSelectedItem().toString();
+        String chiTiet = taChiTiet.getText();
+        if(dipThuong.isEmpty()
+                || chiTiet.isEmpty()){
             JOptionPane.showMessageDialog(this, "Vui lòng điền đủ thông tin");
+            return;
+        }
+        if (!(dipThuong.matches("^\\d{5}$")
+            || dipThuong.matches("^.+ \\d{4}$"))) {
+            JOptionPane.showMessageDialog(this, "Vui lòng điền đúng định dạng học kỳ");
+            return;
+        }
+        if (Character.isDigit(dipThuong.charAt(0)) && thanhTich.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn thành tích khi thưởng cuối năm học");
+            return;
         }
 
+        if (!Character.isDigit(dipThuong.charAt(0)) && !thanhTich.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng để trống mục thành tích khi thưởng dịp lễ");
+            return;
+        }
+
+        if (!chiTiet.matches("^\\s*(?:\\S+(?:\\s+\\S+)*\\s*:\\s*\\d+\\s*,\\s*)*\\S+(?:\\s+\\S+)*\\s*:\\s*\\d+\\s*$")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng điền đúng định dạng chi tiết");
+            return;
+        }
+
+        dipTangThuong = new DipTangThuong(thanhTich, dipThuong,
+            ReadMapFromText.readMapFromText(chiTiet));
+        boolean status = dipTangThuong.addNewRow();
+        if (status) {
+            JOptionPane.showMessageDialog(this, "Thêm thành công");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Thành tích và dịp thưởng bị trùng");
+        }
     }//GEN-LAST:event_btnLuuMouseClicked
 
     /**
@@ -228,7 +270,7 @@ public class Them_dip_thuong extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-
+                new Them_dip_thuong().setVisible(true);
             }
         });
     }
@@ -237,14 +279,14 @@ public class Them_dip_thuong extends javax.swing.JFrame {
     private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnLuu;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lbGiaTien;
-    private javax.swing.JLabel lbHocKi;
-    private javax.swing.JLabel lbSoLuong;
+    private javax.swing.JLabel lbDipThuong;
+    private javax.swing.JLabel lbChiTiet;
     private javax.swing.JLabel lbThanhTich;
     private javax.swing.JLabel lbThemThongTin;
-    private javax.swing.JTextField tfGiaTien;
     private javax.swing.JTextField tfHocKi;
-    private javax.swing.JTextField tfSoLuong;
-    private javax.swing.JTextField tfThanhTich;
+    private javax.swing.JTextArea taChiTiet;
+    private javax.swing.JComboBox<String> cbThanhTich;
+    private javax.swing.JTextArea taLuuY;
+    private javax.swing.JScrollPane spLuuY;
     // End of variables declaration//GEN-END:variables
 }

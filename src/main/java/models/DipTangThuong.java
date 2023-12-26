@@ -26,7 +26,7 @@ public class DipTangThuong implements DBActing{
     // Constructor
     public DipTangThuong(String thanhTich, String hocKy,
                          Map<String, Integer> chiTiet) {
-        this.thanhTich = thanhTich.equals(" ") ? hocKy : thanhTich;
+        this.thanhTich = thanhTich.isEmpty() ? hocKy : thanhTich;
         this.hocKy = hocKy;
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -36,6 +36,7 @@ public class DipTangThuong implements DBActing{
         tongSoPhanQua = listOfHocSinh.size();
         calculateTongSoTien();
     }
+
     public DipTangThuong(int idDipTangThuong, String thanhTich, String hocKy, String ngayTangThuong,
                          int tongSoTien, Map<String, Integer> chiTiet, boolean isDeleted,
                          ListOfHocSinh listOfHocSinh) {
@@ -62,10 +63,12 @@ public class DipTangThuong implements DBActing{
 
     // Phuong thuc de them mot dip tang thuong vao csdl
     @Override
-    public void addNewRow() {
+    public boolean addNewRow() {
         try {
             Connection connection = Connector.getConnection();
 
+            listOfHocSinh = filter(new ListOfHocSinh());
+            tongSoPhanQua = listOfHocSinh.size();
             calculateTongSoTien();
 
             String insertQuery = "INSERT INTO dip_tang_thuong (\n" +
@@ -119,18 +122,25 @@ public class DipTangThuong implements DBActing{
 
             add.close();
             connection.close();
+            return true;
         } catch (Exception e) {
 //            throw new RuntimeException("Dip tang thuong bi lap");
             e.printStackTrace();
+            return false;
         }
     }
 
     // Phuong thuc de sua mot dip tang thuong
     @Override
-    public void editRow() {
+    public boolean editRow() {
         try {
             Connection connection = Connector.getConnection();
 
+            listOfHocSinh = filter(new ListOfHocSinh());
+            tongSoPhanQua = listOfHocSinh.size();
+//            for (HocSinh hocSinh: listOfHocSinh) {
+//                System.out.println(hocSinh.getThanhTich());
+//            };
             calculateTongSoTien();
 
             String updateQuery = "UPDATE `dip_tang_thuong`\n" +
@@ -176,14 +186,15 @@ public class DipTangThuong implements DBActing{
 
             edit.close();
             connection.close();
-
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 
     // Phuong thuc de xoa mot dip tang thuong
-    public void deleteRow() {
+    public boolean deleteRow() {
         try {
             Connection connection = Connector.getConnection();
 
@@ -209,16 +220,17 @@ public class DipTangThuong implements DBActing{
 
             edit.close();
             connection.close();
-
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 
     // Filter
     private List<HocSinh> filter(ListOfHocSinh listOfHocSinh) {
         List<HocSinh> hocSinhList;
-        if (Character.isDigit(hocKy.indexOf(0))) {
+        if (hocKy.matches("^\\d{5}$")) {
             hocSinhList = listOfHocSinh.
                     getListOfHocSinhByHocKyAndThanhTich(hocKy, thanhTich);
         } else {

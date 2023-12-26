@@ -33,7 +33,7 @@ public class TangThuong implements DBActing{
     }
 
     // Phuong thuc de them mot dong vao csdl
-    public void addNewRow() {
+    public boolean addNewRow() {
         try {
             Connection connection = Connector.getConnection();
 
@@ -56,14 +56,15 @@ public class TangThuong implements DBActing{
 
             add.close();
             connection.close();
-
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 
     @Override
-    public void editRow() {
+    public boolean editRow() {
         try {
             Connection connection = Connector.getConnection();
 
@@ -81,14 +82,15 @@ public class TangThuong implements DBActing{
 
             edit.close();
             connection.close();
-
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 
     @Override
-    public void deleteRow() {
+    public boolean deleteRow() {
         try {
             Connection connection = Connector.getConnection();
 
@@ -104,9 +106,10 @@ public class TangThuong implements DBActing{
 
             edit.close();
             connection.close();
-
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 

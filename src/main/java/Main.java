@@ -14,7 +14,8 @@ public class Main {
 //        listOfHocSinh.addNewHocKy("20102");
 //        HocSinh hocSinh = listOfHocSinh.getHocSinhByHoTenSoHoKhauHocKy(
 //                "A", "B", "Trung thu 2010");
-        String text = "5 cuon vo: 120000, 10 goi bim bim: 50000";
+        String text = "6 goi bim bim: 120000, 4 cai keo: 10000";
+        System.out.println(text.matches("^\\s*(?:\\S+(?:\\s+\\S+)*\\s*:\\s*\\d+\\s*,\\s*)*\\S+(?:\\s+\\S+)*\\s*:\\s*\\d+\\s*$"));
         DipTangThuong dipTangThuong = new DipTangThuong(
                 "Gioi", "20101",
                 ReadMapFromText.readMapFromText(text));

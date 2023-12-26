@@ -18,6 +18,7 @@ import models.DipTangThuong;
 import models.HocSinh;
 import models.ListOfDipTangThuong;
 import models.ListOfHocSinh;
+import textHandle.WriteMapToText;
 
 public class Danh_sach_dip_thuong extends javax.swing.JFrame {
     private ListOfDipTangThuong listOfDipTangThuong = new ListOfDipTangThuong();
@@ -114,38 +115,38 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(btnThoat))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnPhanThuong)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(btnQuy))
-                            .addComponent(btnDipThuong)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(btnHocSinh)))))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(37, 37, 37)
+                            .addComponent(btnThoat))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(16, 16, 16)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnPhanThuong)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGap(21, 21, 21)
+                                    .addComponent(btnQuy))
+                                .addComponent(btnDipThuong)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGap(10, 10, 10)
+                                    .addComponent(btnHocSinh)))))
+                    .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(btnPhanThuong)
-                .addGap(18, 18, 18)
-                .addComponent(btnDipThuong)
-                .addGap(18, 18, 18)
-                .addComponent(btnQuy)
-                .addGap(18, 18, 18)
-                .addComponent(btnHocSinh)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE)
-                .addComponent(btnThoat)
-                .addGap(35, 35, 35))
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(51, 51, 51)
+                    .addComponent(btnPhanThuong)
+                    .addGap(18, 18, 18)
+                    .addComponent(btnDipThuong)
+                    .addGap(18, 18, 18)
+                    .addComponent(btnQuy)
+                    .addGap(18, 18, 18)
+                    .addComponent(btnHocSinh)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE)
+                    .addComponent(btnThoat)
+                    .addGap(35, 35, 35))
         );
 
         Quan_ly_cap_phan_thuong.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -189,9 +190,14 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
             new Object [][] {
             },
             new String [] {
-                "Dịp Thưởng ID", "Dịp thưởng", "Ngày Tặng Thưởng", "Thành Tích"
+                "Dịp Thưởng ID", "Dịp thưởng", "Ngày Tặng Thưởng", "Thành Tích", "Chi tiết", "Số phần quà", "Tổng số tiền"
             }
         ));
+        tDipThuong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tDipThuongMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tDipThuong);
 
         btnThem.setBackground(new java.awt.Color(0, 51, 51));
@@ -226,78 +232,88 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 674, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(222, 222, 222)
-                                .addComponent(Quan_ly_cap_phan_thuong))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(275, 275, 275)
-                                .addComponent(Dip_thuong_title))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(38, 38, 38)
-                                        .addComponent(DipThuong)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(tfDipThuong, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(40, 40, 40))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnTim, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)))
-                                .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 674, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(222, 222, 222)
+                                    .addComponent(Quan_ly_cap_phan_thuong))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(275, 275, 275)
+                                    .addComponent(Dip_thuong_title))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGap(38, 38, 38)
+                                            .addComponent(DipThuong)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(tfDipThuong, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(40, 40, 40))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(btnTim, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)))
+                                    .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(0, 0, Short.MAX_VALUE)))
+                    .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(Quan_ly_cap_phan_thuong)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Dip_thuong_title)
-                .addGap(1, 1, 1)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(DipThuong)
-                    .addComponent(tfDipThuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnTim)
-                    .addComponent(btnThem)
-                    .addComponent(btnSua))
-                .addGap(37, 37, 37)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addComponent(Quan_ly_cap_phan_thuong)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(Dip_thuong_title)
+                    .addGap(1, 1, 1)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(DipThuong)
+                        .addComponent(tfDipThuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(18, 18, 18)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnTim)
+                        .addComponent(btnThem)
+                        .addComponent(btnSua))
+                    .addGap(37, 37, 37)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 809, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 809, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tDipThuongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel)tDipThuong.getModel();
+        int indexRow = tDipThuong.getSelectedRow();
+        dipThuongID = Integer.parseInt(model.getValueAt(indexRow, 0).toString());
+        HocKy = String.valueOf(model.getValueAt(indexRow, 1).toString());
+        thanhTich = String.valueOf(model.getValueAt(indexRow, 3).toString());
+        dipTangThuong = listOfDipTangThuong.getListOfDipTangThuongByHocKyAndThanhTich(HocKy, thanhTich);
+    }
 
     private void tfDipThuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDipThuongActionPerformed
         // TODO add your handling code here:
@@ -306,13 +322,13 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
     private void btnTimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimMouseClicked
         // TODO add your handling code here:
         String dipThuong = tfDipThuong.getText();
-        listOfDipTangThuong.searchByHocKy(dipThuong);
+        listOfDipTangThuong.setDipTangThuongList(listOfDipTangThuong.searchByHocKy(dipThuong));
         display();
     }//GEN-LAST:event_btnTimMouseClicked
 
     private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btnTimActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
@@ -321,7 +337,7 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
 
     private void btnThemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseClicked
         // TODO add your handling code here:
-        Them_dip_thuong newForm = new Them_dip_thuong(dipTangThuong);
+        Them_dip_thuong newForm = new Them_dip_thuong();
         newForm.setVisible(true);
     }//GEN-LAST:event_btnThemMouseClicked
 
@@ -330,11 +346,11 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
         //kiểm tra xem chọn dịp thưởng chưa
         if(dipThuongID == -1 || dipTangThuong == null || HocKy.equals("") || thanhTich.equals("")){
             JOptionPane.showMessageDialog(this, "Vui lòng chọn một dịp thưởng trong bảng\n"
-                    + "để sửa thông tin về dịp thưởng đó.");
+                + "để sửa thông tin về dịp thưởng đó.");
+            return;
         }
         Sua_thong_tin_dip_thuong newForm = new Sua_thong_tin_dip_thuong(dipTangThuong);
         newForm.setVisible(true);
-
     }//GEN-LAST:event_btnSuaMouseClicked
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
@@ -376,12 +392,6 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
 
     private void jScrollPane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane2MouseClicked
         // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel)tDipThuong.getModel();
-        int indexRow = tDipThuong.getSelectedRow();
-        dipThuongID = Integer.parseInt(model.getValueAt(indexRow, 0).toString());
-        HocKy = String.valueOf(model.getValueAt(indexRow, 1).toString());
-        thanhTich = String.valueOf(model.getValueAt(indexRow, 3).toString());
-        dipTangThuong = listOfDipTangThuong.getListOfDipTangThuongByHocKyAndThanhTich(HocKy, thanhTich);
     }//GEN-LAST:event_jScrollPane2MouseClicked
 
     private void display() {
@@ -391,8 +401,11 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
 
         for(DipTangThuong dipTangThuong: listOfDipTangThuong.getDipTangThuongList()){
             String data[] = {Integer.toString(dipTangThuong.getIdDipTangTuong()),
-            dipTangThuong.getHocKy(), dipTangThuong.getNgayTangThuong(),
-            dipTangThuong.getThanhTich()};
+                dipTangThuong.getHocKy(), dipTangThuong.getNgayTangThuong(),
+                dipTangThuong.getThanhTich(), WriteMapToText.writeMapToText(dipTangThuong.getChiTiet()),
+                Integer.toString(dipTangThuong.getTongSoPhanQua()),
+                Integer.toString(dipTangThuong.getTongSoTien())
+            };
             defaultTableModel.addRow(data);
         }
         listOfDipTangThuong = new ListOfDipTangThuong();
@@ -405,7 +418,7 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
