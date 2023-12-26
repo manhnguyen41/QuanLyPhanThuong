@@ -6,7 +6,6 @@ package cnpm_fe;
 
 import models.DipTangThuong;
 import textHandle.ReadMapFromText;
-import textHandle.WriteMapToText;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,13 +14,12 @@ import java.awt.*;
  *
  * @author MIXI_COMPUTER
  */
-public class Sua_thong_tin_dip_thuong extends javax.swing.JFrame {
+public class ThemDipThuong extends javax.swing.JFrame {
     private DipTangThuong dipTangThuong;
     /**
      * Creates new form Them_dip_thuong
      */
-    public Sua_thong_tin_dip_thuong(DipTangThuong dipTangThuong) {
-        this.dipTangThuong = dipTangThuong;
+    public ThemDipThuong() {
         initComponents();
     }
 
@@ -33,9 +31,8 @@ public class Sua_thong_tin_dip_thuong extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         jPanel1 = new javax.swing.JPanel();
-        lbSuaThongTin = new javax.swing.JLabel();
+        lbThemThongTin = new javax.swing.JLabel();
         lbThanhTich = new javax.swing.JLabel();
         cbThanhTich = new javax.swing.JComboBox<>();
         lbDipThuong = new javax.swing.JLabel();
@@ -50,30 +47,21 @@ public class Sua_thong_tin_dip_thuong extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(600, 700));
 
-        lbSuaThongTin.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbSuaThongTin.setForeground(new java.awt.Color(0, 102, 102));
-        lbSuaThongTin.setText("Sửa thông tin dịp thưởng");
+        lbThemThongTin.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbThemThongTin.setForeground(new java.awt.Color(0, 102, 102));
+        lbThemThongTin.setText("Thêm thông tin dịp thưởng");
 
         lbThanhTich.setForeground(new java.awt.Color(0, 102, 102));
         lbThanhTich.setText("Thành tích");
 
         cbThanhTich.setModel(new javax.swing.DefaultComboBoxModel<>(
             new String[] { "Giỏi", "Tiên tiến", "Trung bình", ""}));
-        int index = switch (dipTangThuong.getThanhTich()) {
-          case "Giỏi" -> 0;
-          case "Tiên tiến" -> 1;
-          case "Trung bình" -> 2;
-          default -> 3;
-        };
-        cbThanhTich.setSelectedIndex(index);
 
         lbDipThuong.setForeground(new java.awt.Color(0, 102, 102));
         lbDipThuong.setText("Dịp thưởng");
 
         lbChiTiet.setForeground(new java.awt.Color(0, 102, 102));
         lbChiTiet.setText("Chi tiết");
-
-        tfDipThuong.setText(dipTangThuong.getHocKy());
 
         btnLuu.setBackground(new java.awt.Color(0, 51, 51));
         btnLuu.setForeground(new java.awt.Color(255, 255, 255));
@@ -105,7 +93,6 @@ public class Sua_thong_tin_dip_thuong extends javax.swing.JFrame {
 
         taChiTiet.setColumns(20);
         taChiTiet.setRows(10);
-        taChiTiet.setText(WriteMapToText.writeMapToText(dipTangThuong.getChiTiet()));
 
         taLuuY.setColumns(10);
         taLuuY.setForeground(new java.awt.Color(0, 102, 102));
@@ -125,70 +112,70 @@ public class Sua_thong_tin_dip_thuong extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(37, 37, 37)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lbDipThuong)
-                                .addComponent(lbThanhTich)
-                                .addComponent(lbChiTiet)
-                            )
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
-                                .addComponent(lbSuaThongTin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cbThanhTich)
-                                .addComponent(tfDipThuong)
-                                .addComponent(taChiTiet)
-                                .addComponent(spLuuY)))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(103, 103, 103)
-                            .addComponent(btnLuu)
-                            .addGap(290, 290, 290)
-                            .addComponent(btnHuy)))
-                    .addContainerGap(108, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbDipThuong)
+                            .addComponent(lbThanhTich)
+                            .addComponent(lbChiTiet)
+                        )
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, true)
+                            .addComponent(lbThemThongTin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbThanhTich)
+                            .addComponent(tfDipThuong)
+                            .addComponent(taChiTiet)
+                            .addComponent(spLuuY)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(103, 103, 103)
+                        .addComponent(btnLuu)
+                        .addGap(290, 290, 290)
+                        .addComponent(btnHuy)))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(lbSuaThongTin)
-                    .addGap(18, 18, 18)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lbThanhTich)
-                        .addComponent(cbThanhTich, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lbDipThuong)
-                        .addComponent(tfDipThuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(taChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lbChiTiet))
-                    .addGap(44, 44, 44)
-                    .addComponent(spLuuY)
-                    .addGap(44, 44, 44)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnLuu)
-                        .addComponent(btnHuy))
-                    .addContainerGap(165, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbThemThongTin)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbThanhTich)
+                    .addComponent(cbThanhTich, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbDipThuong)
+                    .addComponent(tfDipThuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(taChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbChiTiet))
+                .addGap(44, 44, 44)
+                .addComponent(spLuuY)
+                .addGap(44, 44, 44)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLuu)
+                    .addComponent(btnHuy))
+                .addContainerGap(166, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -216,8 +203,7 @@ public class Sua_thong_tin_dip_thuong extends javax.swing.JFrame {
         String dipThuong = tfDipThuong.getText();
         String thanhTich = cbThanhTich.getSelectedItem().toString();
         String chiTiet = taChiTiet.getText();
-        if(dipThuong.isEmpty()
-            || chiTiet.isEmpty()){
+        if(dipThuong.isEmpty() || chiTiet.isEmpty()){
             JOptionPane.showMessageDialog(this, "Vui lòng điền đủ thông tin");
             return;
         }
@@ -241,12 +227,11 @@ public class Sua_thong_tin_dip_thuong extends javax.swing.JFrame {
             return;
         }
 
-        dipTangThuong.setThanhTich(thanhTich);
-        dipTangThuong.setHocKy(dipThuong);
-        dipTangThuong.setChiTiet(ReadMapFromText.readMapFromText(chiTiet));
-        boolean status = dipTangThuong.editRow();
+        dipTangThuong = new DipTangThuong(thanhTich, dipThuong,
+            ReadMapFromText.readMapFromText(chiTiet));
+        boolean status = dipTangThuong.addNewRow();
         if (status) {
-            JOptionPane.showMessageDialog(this, "Sửa thành công");
+            JOptionPane.showMessageDialog(this, "Thêm thành công");
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Thành tích và dịp thưởng bị trùng");
@@ -260,7 +245,7 @@ public class Sua_thong_tin_dip_thuong extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -270,20 +255,20 @@ public class Sua_thong_tin_dip_thuong extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Them_dip_thuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ThemDipThuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Them_dip_thuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ThemDipThuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Them_dip_thuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ThemDipThuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Them_dip_thuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ThemDipThuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Them_dip_thuong().setVisible(true);
+                new ThemDipThuong().setVisible(true);
             }
         });
     }
@@ -295,7 +280,7 @@ public class Sua_thong_tin_dip_thuong extends javax.swing.JFrame {
     private javax.swing.JLabel lbDipThuong;
     private javax.swing.JLabel lbChiTiet;
     private javax.swing.JLabel lbThanhTich;
-    private javax.swing.JLabel lbSuaThongTin;
+    private javax.swing.JLabel lbThemThongTin;
     private javax.swing.JTextField tfDipThuong;
     private javax.swing.JTextArea taChiTiet;
     private javax.swing.JComboBox<String> cbThanhTich;

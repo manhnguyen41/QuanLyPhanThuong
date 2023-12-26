@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 25, 2023 at 07:59 AM
+-- Generation Time: Dec 26, 2023 at 10:27 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -42,7 +42,9 @@ CREATE TABLE `dip_tang_thuong` (
 --
 
 INSERT INTO `dip_tang_thuong` (`id_dip_tang_thuong`, `thanh_tich`, `hoc_ky`, `ngay_tang_thuong`, `chi_tiet`, `tong_so_tien`, `isDeleted`) VALUES
-(26, 'Trung thu 2010', 'Trung thu 2010', '2023-12-25', '{\"10 goi bim bim\":50000,\"6 cuon vo\":120000}', 1020000, 0);
+(30, 'Trung bình', '20101', '2023-12-26', '{\"5 cuon vo\":50000}', 50000, 0),
+(31, 'Tết thiếu nhi 2010', 'Tết thiếu nhi 2010', '2023-12-26', '{\"1 gói bim bim\":5000,\"1 cái kẹo\":3000}', 0, 0),
+(32, 'Tết thiếu nhi 2009', 'Tết thiếu nhi 2009', '2023-12-26', '{\"1 gói bim bim\":6000,\"1 cái kẹo\":3000}', 63000, 0);
 
 -- --------------------------------------------------------
 
@@ -151,20 +153,97 @@ CREATE TABLE `hoc_sinh` (
 --
 
 INSERT INTO `hoc_sinh` (`nhan_khau_id`, `truong`, `lop`, `thanh_tich`, `hoc_ky`, `isDeleted`, `ho_ten`, `so_ho_khau`) VALUES
-(2, ' ', ' ', ' ', '20101', 0, 'Tran Thi B', 'SHK001'),
+(1, ' ', ' ', ' ', '20001', 0, 'Nguyen Van A', 'SHK001'),
+(1, ' ', ' ', ' ', '20051', 0, 'Nguyen Van A', 'SHK001'),
+(1, ' ', ' ', ' ', 'Trung thu 2006', 0, 'Nguyen Van A', 'SHK001'),
+(1, ' ', ' ', ' ', 'Trung thu 2007', 0, 'Nguyen Van A', 'SHK001'),
+(1, ' ', ' ', ' ', 'Trung thu 2008', 0, 'Nguyen Van A', 'SHK001'),
+(2, 'Nguyen Trai', '10A2', 'Giỏi', '20051', 0, 'Tran Thi B', 'SHK001'),
+(2, 'Ham Rong', '10A1', 'Trung bình', '20101', 0, 'Tran Thi B', 'SHK001'),
 (2, ' ', ' ', ' ', '20102', 0, 'Tran Thi B', 'SHK001'),
+(2, ' ', ' ', ' ', 'Tết thiếu nhi 2009', 0, 'Tran Thi B', 'SHK001'),
+(2, ' ', ' ', ' ', 'Trung thu 2006', 0, 'Tran Thi B', 'SHK001'),
+(2, ' ', ' ', ' ', 'Trung thu 2007', 0, 'Tran Thi B', 'SHK001'),
+(2, ' ', ' ', ' ', 'Trung thu 2008', 0, 'Tran Thi B', 'SHK001'),
+(2, ' ', ' ', ' ', 'Trung thu 2009', 0, 'Tran Thi B', 'SHK001'),
 (2, ' ', ' ', ' ', 'Trung thu 2010', 0, 'Tran Thi B', 'SHK001'),
+(3, ' ', ' ', ' ', '20001', 0, 'Le Van C', 'SHK001'),
+(3, ' ', ' ', ' ', 'Trung thu 2006', 0, 'Le Van C', 'SHK001'),
+(4, ' ', ' ', ' ', '20001', 0, 'Pham Thi D', 'SHK001'),
+(4, ' ', ' ', ' ', '20051', 0, 'Pham Thi D', 'SHK001'),
+(4, ' ', ' ', ' ', 'Tết thiếu nhi 2009', 0, 'Pham Thi D', 'SHK001'),
+(4, ' ', ' ', ' ', 'Trung thu 2006', 0, 'Pham Thi D', 'SHK001'),
+(4, ' ', ' ', ' ', 'Trung thu 2007', 0, 'Pham Thi D', 'SHK001'),
+(4, ' ', ' ', ' ', 'Trung thu 2008', 0, 'Pham Thi D', 'SHK001'),
+(4, ' ', ' ', ' ', 'Trung thu 2009', 0, 'Pham Thi D', 'SHK001'),
 (4, ' ', ' ', ' ', 'Trung thu 2010', 0, 'Pham Thi D', 'SHK001'),
+(5, ' ', ' ', ' ', '20001', 0, 'Vo Van E', 'SHK002'),
+(6, ' ', ' ', ' ', '20001', 0, 'Do Thi F', 'SHK002'),
+(6, ' ', ' ', ' ', '20051', 0, 'Do Thi F', 'SHK002'),
+(6, ' ', ' ', ' ', 'Trung thu 2006', 0, 'Do Thi F', 'SHK002'),
+(6, ' ', ' ', ' ', 'Trung thu 2007', 0, 'Do Thi F', 'SHK002'),
+(6, ' ', ' ', ' ', 'Trung thu 2008', 0, 'Do Thi F', 'SHK002'),
+(7, ' ', ' ', ' ', '20001', 0, 'Nguyen Van G', 'SHK002'),
+(8, ' ', ' ', ' ', '20001', 0, 'Tran Van H', 'SHK002'),
+(8, ' ', ' ', ' ', '20051', 0, 'Tran Van H', 'SHK002'),
+(8, ' ', ' ', ' ', 'Tết thiếu nhi 2009', 0, 'Tran Van H', 'SHK002'),
+(8, ' ', ' ', ' ', 'Trung thu 2006', 0, 'Tran Van H', 'SHK002'),
+(8, ' ', ' ', ' ', 'Trung thu 2007', 0, 'Tran Van H', 'SHK002'),
+(8, ' ', ' ', ' ', 'Trung thu 2008', 0, 'Tran Van H', 'SHK002'),
+(8, ' ', ' ', ' ', 'Trung thu 2009', 0, 'Tran Van H', 'SHK002'),
 (8, ' ', ' ', ' ', 'Trung thu 2010', 0, 'Tran Van H', 'SHK002'),
+(9, ' ', ' ', ' ', '20051', 0, 'Le Thi I', 'SHK003'),
 (9, ' ', ' ', ' ', '20101', 0, 'Le Thi I', 'SHK003'),
 (9, ' ', ' ', ' ', '20102', 0, 'Le Thi I', 'SHK003'),
+(9, ' ', ' ', ' ', 'Tết thiếu nhi 2009', 0, 'Le Thi I', 'SHK003'),
+(9, ' ', ' ', ' ', 'Trung thu 2006', 0, 'Le Thi I', 'SHK003'),
+(9, ' ', ' ', ' ', 'Trung thu 2007', 0, 'Le Thi I', 'SHK003'),
+(9, ' ', ' ', ' ', 'Trung thu 2008', 0, 'Le Thi I', 'SHK003'),
+(9, ' ', ' ', ' ', 'Trung thu 2009', 0, 'Le Thi I', 'SHK003'),
 (9, ' ', ' ', ' ', 'Trung thu 2010', 0, 'Le Thi I', 'SHK003'),
+(10, ' ', ' ', ' ', '20001', 0, 'Pham Van K', 'SHK003'),
+(10, ' ', ' ', ' ', '20051', 0, 'Pham Van K', 'SHK003'),
+(10, ' ', ' ', ' ', 'Tết thiếu nhi 2009', 0, 'Pham Van K', 'SHK003'),
+(10, ' ', ' ', ' ', 'Trung thu 2006', 0, 'Pham Van K', 'SHK003'),
+(10, ' ', ' ', ' ', 'Trung thu 2007', 0, 'Pham Van K', 'SHK003'),
+(10, ' ', ' ', ' ', 'Trung thu 2008', 0, 'Pham Van K', 'SHK003'),
+(10, ' ', ' ', ' ', 'Trung thu 2009', 0, 'Pham Van K', 'SHK003'),
+(11, ' ', ' ', ' ', '20001', 0, 'Hoang Van L', 'SHK003'),
+(11, ' ', ' ', ' ', '20051', 0, 'Hoang Van L', 'SHK003'),
+(11, ' ', ' ', ' ', 'Trung thu 2006', 0, 'Hoang Van L', 'SHK003'),
+(11, ' ', ' ', ' ', 'Trung thu 2007', 0, 'Hoang Van L', 'SHK003'),
+(12, ' ', ' ', ' ', '20051', 0, 'Nguyen Thi M', 'SHK003'),
 (12, ' ', ' ', ' ', '20101', 0, 'Nguyen Thi M', 'SHK003'),
 (12, ' ', ' ', ' ', '20102', 0, 'Nguyen Thi M', 'SHK003'),
+(12, ' ', ' ', ' ', 'Tết thiếu nhi 2009', 0, 'Nguyen Thi M', 'SHK003'),
+(12, ' ', ' ', ' ', 'Trung thu 2006', 0, 'Nguyen Thi M', 'SHK003'),
+(12, ' ', ' ', ' ', 'Trung thu 2007', 0, 'Nguyen Thi M', 'SHK003'),
+(12, ' ', ' ', ' ', 'Trung thu 2008', 0, 'Nguyen Thi M', 'SHK003'),
+(12, ' ', ' ', ' ', 'Trung thu 2009', 0, 'Nguyen Thi M', 'SHK003'),
 (12, ' ', ' ', ' ', 'Trung thu 2010', 0, 'Nguyen Thi M', 'SHK003'),
+(13, ' ', ' ', ' ', '20001', 0, 'Do Van N', 'SHK004'),
+(14, ' ', ' ', ' ', '20001', 0, 'Le Thi O', 'SHK004'),
+(16, ' ', ' ', ' ', '20001', 0, 'Tran Thi Q', 'SHK004'),
+(16, ' ', ' ', ' ', 'Trung thu 2006', 0, 'Tran Thi Q', 'SHK004'),
+(17, ' ', ' ', ' ', '20001', 0, 'Nguyen Van X', 'SHK001'),
+(17, ' ', ' ', ' ', '20051', 0, 'Nguyen Van X', 'SHK001'),
+(17, ' ', ' ', ' ', 'Trung thu 2006', 0, 'Nguyen Van X', 'SHK001'),
+(17, ' ', ' ', ' ', 'Trung thu 2007', 0, 'Nguyen Van X', 'SHK001'),
+(17, ' ', ' ', ' ', 'Trung thu 2008', 0, 'Nguyen Van X', 'SHK001'),
+(18, ' ', ' ', ' ', '20051', 0, 'Nguyen Thi Y', 'SHK002'),
 (18, ' ', ' ', ' ', '20101', 0, 'Nguyen Thi Y', 'SHK002'),
 (18, ' ', ' ', ' ', '20102', 0, 'Nguyen Thi Y', 'SHK002'),
-(18, ' ', ' ', ' ', 'Trung thu 2010', 0, 'Nguyen Thi Y', 'SHK002');
+(18, ' ', ' ', ' ', 'Tết thiếu nhi 2009', 0, 'Nguyen Thi Y', 'SHK002'),
+(18, ' ', ' ', ' ', 'Trung thu 2006', 0, 'Nguyen Thi Y', 'SHK002'),
+(18, ' ', ' ', ' ', 'Trung thu 2007', 0, 'Nguyen Thi Y', 'SHK002'),
+(18, ' ', ' ', ' ', 'Trung thu 2008', 0, 'Nguyen Thi Y', 'SHK002'),
+(18, ' ', ' ', ' ', 'Trung thu 2009', 0, 'Nguyen Thi Y', 'SHK002'),
+(18, ' ', ' ', ' ', 'Trung thu 2010', 0, 'Nguyen Thi Y', 'SHK002'),
+(19, ' ', ' ', ' ', '20001', 0, 'Nguyen Van rA', 'SHK005'),
+(19, ' ', ' ', ' ', '20051', 0, 'Nguyen Van rA', 'SHK005'),
+(19, ' ', ' ', ' ', 'Trung thu 2006', 0, 'Nguyen Van rA', 'SHK005'),
+(19, ' ', ' ', ' ', 'Trung thu 2007', 0, 'Nguyen Van rA', 'SHK005'),
+(19, ' ', ' ', ' ', 'Trung thu 2008', 0, 'Nguyen Van rA', 'SHK005');
 
 -- --------------------------------------------------------
 
@@ -319,7 +398,9 @@ CREATE TABLE `ngan_quy_tang_thuong` (
 --
 
 INSERT INTO `ngan_quy_tang_thuong` (`id_ngan_quy_tang_thuong`, `so_tien_thay_doi`, `ngay_thay_doi`, `tong_so_tien`, `chi_tiet`, `isDeleted`) VALUES
-(26, 1020000, '2023-12-25', -1020000, 'Thuong hoc sinh Trung thu 2010 hoc ky Trung thu 2010', 0);
+(30, 50000, '2023-12-26', -50000, 'Thuong hoc sinh Trung bình hoc ky 20101', 0),
+(31, 0, '2023-12-26', 9950000, 'Thuong hoc sinh Tết thiếu nhi 2010 hoc ky Tết thiếu nhi 2010', 0),
+(32, 63000, '2023-12-26', 9887000, 'Thuong hoc sinh Tết thiếu nhi 2009 hoc ky Tết thiếu nhi 2009', 0);
 
 -- --------------------------------------------------------
 
@@ -444,9 +525,10 @@ CREATE TABLE `tang_thuong` (
 --
 
 INSERT INTO `tang_thuong` (`id_dip_tang_thuong`, `so_ho_khau`, `hoc_ky`, `chi_tiet_phan_qua`, `isDeleted`) VALUES
-(26, 'SHK001', 'Trung thu 2010', '{\"Trung thu 2010\":2}', 0),
-(26, 'SHK002', 'Trung thu 2010', '{\"Trung thu 2010\":2}', 0),
-(26, 'SHK003', 'Trung thu 2010', '{\"Trung thu 2010\":2}', 0);
+(30, 'SHK001', '20101', '{\"Trung bình\":1}', 0),
+(32, 'SHK001', 'Tết thiếu nhi 2009', '{\"Tết thiếu nhi 2009\":2}', 0),
+(32, 'SHK002', 'Tết thiếu nhi 2009', '{\"Tết thiếu nhi 2009\":2}', 0),
+(32, 'SHK003', 'Tết thiếu nhi 2009', '{\"Tết thiếu nhi 2009\":3}', 0);
 
 -- --------------------------------------------------------
 
@@ -572,7 +654,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `dip_tang_thuong`
 --
 ALTER TABLE `dip_tang_thuong`
-  MODIFY `id_dip_tang_thuong` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_dip_tang_thuong` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `dong_gop`

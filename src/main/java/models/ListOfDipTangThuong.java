@@ -49,7 +49,7 @@ public class ListOfDipTangThuong{
         List<DipTangThuong> filteredList = new ArrayList<>();
         for (DipTangThuong dipTangThuong: dipTangThuongList) {
             if (dipTangThuong.getHocKy().toLowerCase()
-                    .contains(hocKy.toLowerCase())) {
+                    .contains(hocKy.toLowerCase()) && !dipTangThuong.isDeleted()) {
                 filteredList.add(dipTangThuong);
             }
         }
@@ -60,7 +60,7 @@ public class ListOfDipTangThuong{
     public DipTangThuong getListOfDipTangThuongByHocKyAndThanhTich(String hocKy, String thanhTich) {
         for (DipTangThuong dipTangThuong: dipTangThuongList) {
             if (dipTangThuong.getHocKy().contains(hocKy)
-                    && dipTangThuong.getThanhTich().contains(thanhTich)) {
+                    && dipTangThuong.getThanhTich().contains(thanhTich) && !dipTangThuong.isDeleted()) {
                 return dipTangThuong;
             }
         }

@@ -88,7 +88,7 @@ public class DipTangThuong implements DBActing{
             PreparedStatement add = connection.prepareStatement(insertQuery);
             int row = add.executeUpdate();
 
-            String selectQuery = "SELECT * FROM dip_tang_thuong WHERE\n" +
+            String selectQuery = "SELECT * FROM dip_tang_thuong WHERE\n" + "`isDeleted` = 0 AND " +
                     " `thanh_tich` = '" + thanhTich + "' AND `hoc_ky` = '" + hocKy + "';";
 
             Statement statement = connection.createStatement();
@@ -97,7 +97,7 @@ public class DipTangThuong implements DBActing{
             resultSet.next();
             idDipTangThuong = resultSet.getInt("id_dip_tang_thuong");
 
-            nganQuyTangThuong = new NganQuyTangThuong(idDipTangThuong, tongSoTien, "Thuong hoc sinh " + thanhTich + " hoc ky " + hocKy);
+            nganQuyTangThuong = new NganQuyTangThuong(idDipTangThuong, tongSoTien, "Thưởng " + thanhTich + " học kỳ " + hocKy);
             nganQuyTangThuong.addNewRow();
 
             for (HocSinh hocSinh: listOfHocSinh) {
@@ -160,7 +160,7 @@ public class DipTangThuong implements DBActing{
             nganQuyTangThuong.editRow();
 
             ListOfTangThuong listOfTangThuong = new ListOfTangThuong();
-            for (TangThuong tangThuong: listOfTangThuong.getTangThuongList()) {
+            for (TangThuong tangThuong: listOfTangThuong.searchByIdDipTangThuong(idDipTangThuong)) {
                 tangThuong.deleteRow();
             }
 
@@ -214,7 +214,7 @@ public class DipTangThuong implements DBActing{
             nganQuyTangThuong.deleteRow();
 
             ListOfTangThuong listOfTangThuong = new ListOfTangThuong();
-            for (TangThuong tangThuong: listOfTangThuong.getTangThuongList()) {
+            for (TangThuong tangThuong: listOfTangThuong.searchByIdDipTangThuong(idDipTangThuong)) {
                 tangThuong.deleteRow();
             }
 

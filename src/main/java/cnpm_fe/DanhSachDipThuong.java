@@ -8,19 +8,15 @@ package cnpm_fe;
  *
  * @author MIXI_COMPUTER
  */
-import cnpm_fe.Them_dip_thuong;
-import javax.swing.JOptionPane;
+
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import cnpm_fe.Sua_thong_tin_dip_thuong;
-import cnpm_fe.Them_dip_thuong;
 import models.DipTangThuong;
-import models.HocSinh;
 import models.ListOfDipTangThuong;
-import models.ListOfHocSinh;
 import textHandle.WriteMapToText;
 
-public class Danh_sach_dip_thuong extends javax.swing.JFrame {
+public class DanhSachDipThuong extends javax.swing.JFrame {
     private ListOfDipTangThuong listOfDipTangThuong = new ListOfDipTangThuong();
     private DipTangThuong dipTangThuong = null;
     private int dipThuongID = -1;
@@ -29,7 +25,7 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
     /**
      * Creates new form Danh_sach_dip_thuong
      */
-    public Danh_sach_dip_thuong() {
+    public DanhSachDipThuong() {
         initComponents();
         display();
     }
@@ -45,7 +41,7 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        btnPhanThuong = new javax.swing.JLabel();
+        btnTangThuong = new javax.swing.JLabel();
         btnDipThuong = new javax.swing.JLabel();
         btnQuy = new javax.swing.JLabel();
         btnHocSinh = new javax.swing.JLabel();
@@ -58,6 +54,7 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tDipThuong = new javax.swing.JTable();
         btnThem = new javax.swing.JButton();
+        btnXoa = new JButton();
         btnSua = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -71,12 +68,12 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
             }
         });
 
-        btnPhanThuong.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnPhanThuong.setForeground(new java.awt.Color(255, 255, 255));
-        btnPhanThuong.setText("Phần thưởng");
-        btnPhanThuong.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnTangThuong.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnTangThuong.setForeground(new java.awt.Color(255, 255, 255));
+        btnTangThuong.setText("Tặng thưởng");
+        btnTangThuong.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnPhanThuongMouseClicked(evt);
+                btnTangThuongMouseClicked(evt);
             }
         });
 
@@ -116,34 +113,26 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(37, 37, 37)
-                            .addComponent(btnThoat))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(16, 16, 16)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnPhanThuong)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addGap(21, 21, 21)
-                                    .addComponent(btnQuy))
-                                .addComponent(btnDipThuong)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addGap(10, 10, 10)
-                                    .addComponent(btnHocSinh)))))
+                    .addGap(20, 20, 20)
+                    .addGroup(jPanel2Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(btnThoat)
+                        .addComponent(btnQuy)
+                        .addComponent(btnTangThuong)
+                        .addComponent(btnDipThuong)
+                        .addComponent(btnHocSinh))
                     .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(51, 51, 51)
-                    .addComponent(btnPhanThuong)
+                    .addComponent(btnHocSinh)
                     .addGap(18, 18, 18)
                     .addComponent(btnDipThuong)
                     .addGap(18, 18, 18)
-                    .addComponent(btnQuy)
+                    .addComponent(btnTangThuong)
                     .addGap(18, 18, 18)
-                    .addComponent(btnHocSinh)
+                    .addComponent(btnQuy)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE)
                     .addComponent(btnThoat)
                     .addGap(35, 35, 35))
@@ -168,7 +157,7 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
 
         btnTim.setBackground(new java.awt.Color(0, 51, 51));
         btnTim.setForeground(new java.awt.Color(255, 255, 255));
-        btnTim.setText("Tìm");
+        btnTim.setText("Lọc");
         btnTim.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnTimMouseClicked(evt);
@@ -211,6 +200,15 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThemActionPerformed(evt);
+            }
+        });
+
+        btnXoa.setBackground(new java.awt.Color(0, 51, 51));
+        btnXoa.setForeground(new java.awt.Color(255, 255, 255));
+        btnXoa.setText("Xoá");
+        btnXoa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnXoaMouseClicked(evt);
             }
         });
 
@@ -260,7 +258,9 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
                                             .addGap(18, 18, 18)))
                                     .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGap(0, 0, Short.MAX_VALUE)))
                     .addContainerGap())
         );
@@ -279,7 +279,8 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnTim)
                         .addComponent(btnThem)
-                        .addComponent(btnSua))
+                        .addComponent(btnSua)
+                        .addComponent(btnXoa))
                     .addGap(37, 37, 37)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addContainerGap())
@@ -331,25 +332,44 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnTimActionPerformed
 
+    private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseClicked
+        // TODO add your handling code here:
+        //kiểm tra xem chọn dịp thưởng chưa
+        if(dipThuongID == -1 || dipTangThuong == null || HocKy.equals("")){
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một dịp thưởng trong bảng\n"
+                + "để xoá.");
+            return;
+        }
+        int option = JOptionPane.showConfirmDialog(this, "Xoá dịp thưởng");
+        if (option == 0) {
+            boolean status = dipTangThuong.deleteRow();
+            if (status) {
+                JOptionPane.showMessageDialog(this, "Xoá thành công");
+            } else {
+                JOptionPane.showMessageDialog(this, "Xoá không thành công");
+            }
+        }
+    }
+
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnThemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseClicked
         // TODO add your handling code here:
-        Them_dip_thuong newForm = new Them_dip_thuong();
+        ThemDipThuong newForm = new ThemDipThuong();
         newForm.setVisible(true);
     }//GEN-LAST:event_btnThemMouseClicked
 
     private void btnSuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseClicked
         // TODO add your handling code here:
         //kiểm tra xem chọn dịp thưởng chưa
-        if(dipThuongID == -1 || dipTangThuong == null || HocKy.equals("") || thanhTich.equals("")){
+        if(dipThuongID == -1 || dipTangThuong == null || HocKy.equals("")){
             JOptionPane.showMessageDialog(this, "Vui lòng chọn một dịp thưởng trong bảng\n"
                 + "để sửa thông tin về dịp thưởng đó.");
             return;
         }
-        Sua_thong_tin_dip_thuong newForm = new Sua_thong_tin_dip_thuong(dipTangThuong);
+        SuaDipThuong newForm = new SuaDipThuong(dipTangThuong);
         newForm.setVisible(true);
     }//GEN-LAST:event_btnSuaMouseClicked
 
@@ -357,30 +377,30 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSuaActionPerformed
 
-    private void btnPhanThuongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPhanThuongMouseClicked
+    private void btnTangThuongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTangThuongMouseClicked
         // TODO add your handling code here:
-        Danh_sach_phan_thuong newFrame = new Danh_sach_phan_thuong();
+        DanhSachTangThuong newFrame = new DanhSachTangThuong();
         newFrame.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnPhanThuongMouseClicked
+    }//GEN-LAST:event_btnTangThuongMouseClicked
 
     private void btnDipThuongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDipThuongMouseClicked
         // TODO add your handling code here:
-        Danh_sach_dip_thuong newFrame = new Danh_sach_dip_thuong();
+        DanhSachDipThuong newFrame = new DanhSachDipThuong();
         newFrame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnDipThuongMouseClicked
 
     private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
         // TODO add your handling code here:
-        Danh_sach_quy newFrame = new Danh_sach_quy();
+        DanhSachQuy newFrame = new DanhSachQuy();
         newFrame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel2MouseClicked
 
     private void btnHocSinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHocSinhMouseClicked
         // TODO add your handling code here:
-        Danh_sach_hoc_sinh newFrame = new Danh_sach_hoc_sinh();
+        DanhSachHocSinh newFrame = new DanhSachHocSinh();
         newFrame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnHocSinhMouseClicked
@@ -399,12 +419,12 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
         defaultTableModel.getDataVector().removeAllElements();
         defaultTableModel.fireTableDataChanged();
 
-        for(DipTangThuong dipTangThuong: listOfDipTangThuong.getDipTangThuongList()){
+        for(DipTangThuong dipTangThuong: listOfDipTangThuong.getNotDeletedDipTangThuong()){
             String data[] = {Integer.toString(dipTangThuong.getIdDipTangTuong()),
                 dipTangThuong.getHocKy(), dipTangThuong.getNgayTangThuong(),
                 dipTangThuong.getThanhTich(), WriteMapToText.writeMapToText(dipTangThuong.getChiTiet()),
                 Integer.toString(dipTangThuong.getTongSoPhanQua()),
-                Integer.toString(dipTangThuong.getTongSoTien())
+                dipTangThuong.getTongSoTien() + " VND"
             };
             defaultTableModel.addRow(data);
         }
@@ -428,20 +448,20 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Danh_sach_dip_thuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DanhSachDipThuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Danh_sach_dip_thuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DanhSachDipThuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Danh_sach_dip_thuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DanhSachDipThuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Danh_sach_dip_thuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DanhSachDipThuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Danh_sach_dip_thuong().setVisible(true);
+                new DanhSachDipThuong().setVisible(true);
             }
         });
     }
@@ -452,7 +472,7 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
     private javax.swing.JLabel Quan_ly_cap_phan_thuong;
     private javax.swing.JLabel btnDipThuong;
     private javax.swing.JLabel btnHocSinh;
-    private javax.swing.JLabel btnPhanThuong;
+    private javax.swing.JLabel btnTangThuong;
     private javax.swing.JLabel btnQuy;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
@@ -463,5 +483,6 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tDipThuong;
     private javax.swing.JTextField tfDipThuong;
+    private JButton btnXoa;
     // End of variables declaration//GEN-END:variables
 }

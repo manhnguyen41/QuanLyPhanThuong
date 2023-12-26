@@ -13,6 +13,7 @@ public class NganQuyTangThuong implements DBActing{
     private int soTienThayDoi;
     private String ngayThayDoi;
     private static int tongSoTien;
+    private static int soTienBanDau = 10000000;
     private String chiTiet;
     private boolean isDeleted = false;
 
@@ -180,5 +181,13 @@ public class NganQuyTangThuong implements DBActing{
 
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
+    }
+
+    public static int getSoTienBanDau() {
+        return soTienBanDau;
+    }
+
+    public static void setSoTienBanDau(int soTienBanDau) {
+        NganQuyTangThuong.soTienBanDau = soTienBanDau;
     }
 }

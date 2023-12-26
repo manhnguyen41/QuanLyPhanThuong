@@ -21,15 +21,20 @@ public class ListOfNganQuy {
 
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(selectQuery);
+            NganQuyTangThuong.setTongSoTien(NganQuyTangThuong.getSoTienBanDau());
             while (resultSet.next()) {
                 NganQuyTangThuong nganQuyTangThuong = new NganQuyTangThuong(
                         resultSet.getInt("id_ngan_quy_tang_thuong"),
                         resultSet.getInt("so_tien_thay_doi"),
                         resultSet.getString("ngay_thay_doi"),
                         resultSet.getString("chi_tiet"),
-                        resultSet.getInt("tong_so_tien"),
+                        NganQuyTangThuong.getTongSoTien(),
                         resultSet.getBoolean("isDeleted")
                         );
+                if (!nganQuyTangThuong.isDeleted()) {
+                    NganQuyTangThuong.setTongSoTien(NganQuyTangThuong.getTongSoTien()
+                        - nganQuyTangThuong.getSoTienThayDoi());
+                }
                 nganQuyTangThuongList.add(nganQuyTangThuong);
             }
             connection.close();
