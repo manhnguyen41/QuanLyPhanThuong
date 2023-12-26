@@ -165,7 +165,7 @@ public class Danh_sach_phan_thuong extends javax.swing.JFrame {
 
         btnTim.setBackground(new java.awt.Color(0, 51, 51));
         btnTim.setForeground(new java.awt.Color(255, 255, 255));
-        btnTim.setText("Tìm");
+        btnTim.setText("Lọc");
         btnTim.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnTimMouseClicked(evt);
@@ -277,7 +277,7 @@ public class Danh_sach_phan_thuong extends javax.swing.JFrame {
         // TODO add your handling code here:
         String dipThuong = tfDipThuong.getText();
         String soHoKhau = tfSoHoKhau.getText();
-        listOfTangThuong.searchBySoHoKhauAndHocKy(dipThuong, soHoKhau);
+        listOfTangThuong.setTangThuongList(listOfTangThuong.searchBySoHoKhauAndHocKy(soHoKhau, dipThuong));
         display();
 
     }//GEN-LAST:event_btnTimMouseClicked

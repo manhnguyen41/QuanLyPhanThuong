@@ -172,7 +172,7 @@ public class Danh_sach_hoc_sinh extends javax.swing.JFrame {
 
         btnTim.setBackground(new java.awt.Color(0, 51, 51));
         btnTim.setForeground(new java.awt.Color(255, 255, 255));
-        btnTim.setText("Tìm");
+        btnTim.setText("Lọc");
         btnTim.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnTimClicked(evt);

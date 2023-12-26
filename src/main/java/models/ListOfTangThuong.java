@@ -42,8 +42,8 @@ public class ListOfTangThuong {
     public List<TangThuong> searchBySoHoKhauAndHocKy(String soHoKhau, String hocKy) {
         List<TangThuong> filteredList = new ArrayList<>();
         for (TangThuong tangThuong: tangThuongList) {
-            if (tangThuong.getSoHoKhau().contains(soHoKhau)
-                    && tangThuong.getHocKy().contains(hocKy)) {
+            if (tangThuong.getSoHoKhau().toLowerCase().contains(soHoKhau.toLowerCase())
+                    && tangThuong.getHocKy().toLowerCase().contains(hocKy.toLowerCase())) {
                 filteredList.add(tangThuong);
             }
         }

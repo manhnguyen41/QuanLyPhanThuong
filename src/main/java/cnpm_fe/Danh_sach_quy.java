@@ -45,6 +45,8 @@ public class Danh_sach_quy extends javax.swing.JFrame {
         Danh_sach_quy_title = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tQuy = new javax.swing.JTable();
+        lbTongTien = new javax.swing.JLabel();
+        tfTongTien = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -152,6 +154,8 @@ public class Danh_sach_quy extends javax.swing.JFrame {
             }
         ));
         jScrollPane2.setViewportView(tQuy);
+        tfTongTien.setEditable(false);
+        lbTongTien.setText("Tổng số tiền:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -173,7 +177,13 @@ public class Danh_sach_quy extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(225, 225, 225)
                         .addComponent(Quan_ly_cap_phan_thuong)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbTongTien)
+                        .addGap(18, 18, 18)
+                        .addComponent(tfTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(84, 84, 84))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,8 +192,12 @@ public class Danh_sach_quy extends javax.swing.JFrame {
                 .addComponent(Quan_ly_cap_phan_thuong)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Danh_sach_quy_title)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbTongTien)
+                    .addComponent(tfTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -244,12 +258,14 @@ public class Danh_sach_quy extends javax.swing.JFrame {
         defaultTableModel.getDataVector().removeAllElements();
         defaultTableModel.fireTableDataChanged();
 
-        for(NganQuyTangThuong nganQuyTangThuong: listOfNganQuy.getNganQuyTangThuongList()){
+        for(NganQuyTangThuong nganQuyTangThuong: listOfNganQuy.getNotDeletedNganQuy()){
             String data[] = {Integer.toString(nganQuyTangThuong.getIdNganQuyTangThuong()), nganQuyTangThuong.getChiTiet(),
                     nganQuyTangThuong.getNgayThayDoi()};
             defaultTableModel.addRow(data);
         }
         listOfNganQuy = new ListOfNganQuy();
+        String tongTien = Integer.toString(NganQuyTangThuong.getTongSoTien());
+        tfTongTien.setText(tongTien);
     }
     /**
      * @param args the command line arguments
@@ -297,6 +313,8 @@ public class Danh_sach_quy extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lbTongTien;
     private javax.swing.JTable tQuy;
+    private javax.swing.JTextField tfTongTien;
     // End of variables declaration//GEN-END:variables
 }
