@@ -23,6 +23,8 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
     private ListOfDipTangThuong listOfDipTangThuong = new ListOfDipTangThuong();
     private DipTangThuong dipTangThuong = null;
     private int dipThuongID = -1;
+    private String HocKy = "";
+    private String thanhTich = "";
     /**
      * Creates new form Danh_sach_dip_thuong
      */
@@ -177,6 +179,12 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPane2MouseClicked(evt);
+            }
+        });
+
         tDipThuong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -324,14 +332,13 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
     private void btnSuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseClicked
         // TODO add your handling code here:
         //kiểm tra xem chọn dịp thưởng chưa
-        if(dipThuongID == -1 || dipTangThuong == null){
+        if(dipThuongID == -1 || dipTangThuong == null || HocKy.equals("") || thanhTich.equals("")){
             JOptionPane.showMessageDialog(this, "Vui lòng chọn một dịp thưởng trong bảng\n"
                     + "để sửa thông tin về dịp thưởng đó.");
         }
-        else {
-            Sua_thong_tin_dip_thuong newForm = new Sua_thong_tin_dip_thuong(dipTangThuong);
-            newForm.setVisible(true);
-        }
+        Sua_thong_tin_dip_thuong newForm = new Sua_thong_tin_dip_thuong(dipTangThuong);
+        newForm.setVisible(true);
+
     }//GEN-LAST:event_btnSuaMouseClicked
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
@@ -370,6 +377,16 @@ public class Danh_sach_dip_thuong extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnThoatMouseClicked
+
+    private void jScrollPane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane2MouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel)tDipThuong.getModel();
+        int indexRow = tDipThuong.getSelectedRow();
+        dipThuongID = Integer.parseInt(model.getValueAt(indexRow, 0).toString());
+        HocKy = String.valueOf(model.getValueAt(indexRow, 1).toString());
+        thanhTich = String.valueOf(model.getValueAt(indexRow, 3).toString());
+        dipTangThuong = listOfDipTangThuong.getListOfDipTangThuongByHocKyAndThanhTich(HocKy, thanhTich);
+    }//GEN-LAST:event_jScrollPane2MouseClicked
 
     private void display() {
         DefaultTableModel defaultTableModel = (DefaultTableModel) tDipThuong.getModel();

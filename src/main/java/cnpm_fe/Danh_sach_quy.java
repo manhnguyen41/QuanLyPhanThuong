@@ -146,13 +146,9 @@ public class Danh_sach_quy extends javax.swing.JFrame {
 
         tQuy.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3"
+                "Ngân Quỹ ID", "Chi Tiết", "Ngày Thay Đổi"
             }
         ));
         jScrollPane2.setViewportView(tQuy);
